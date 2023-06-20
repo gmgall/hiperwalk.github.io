@@ -38,6 +38,9 @@ hiperwalk.Line
           ~Line.embeddable
        
        
+          ~Line.get_default_coin
+       
+       
           ~Line.neighbors
        
        

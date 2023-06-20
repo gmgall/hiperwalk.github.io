@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.plot._animation &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>hiperwalk.plot._animation &#8212; Hiperwalk 2.0a1 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/plot/_animation';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.readthedocs.io/en/latest/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -351,6 +351,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">.._constants</span> <span class="kn">import</span> <span class="n">__DEBUG__</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
@@ -449,6 +450,8 @@ document.write(`
             <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
                 <span class="k">global</span> <span class="n">start</span>
                 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;update_figure: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
                 <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
 
         <span class="c1"># TODO: repeat_delay not implemented in animation.save</span>
@@ -467,7 +470,8 @@ document.write(`
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
             <span class="c1"># used to check if no extra padding is being added</span>
-            <span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span></div>
+            <span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fig dpi &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">dpi</span><span class="p">))</span></div>
 
     <span class="c1"># TODO: saving video is supported but not recommended because</span>
     <span class="c1">#   fps may not be respected.</span>
@@ -514,8 +518,14 @@ document.write(`
             <span class="n">filename</span> <span class="o">+=</span> <span class="s1">&#39;.gif&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_path</span> <span class="o">=</span> <span class="n">filename</span>
 
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------------------------&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------------------------&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plt_anim</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_path</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;finished saving&#39;</span><span class="p">)</span>
 
         <span class="c1"># by ignoring this condition while using the terminal,</span>
         <span class="c1"># a non-aborting exception is thrown:</span>
@@ -537,6 +547,9 @@ document.write(`
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_saved</span><span class="p">():</span>
             <span class="kn">import</span> <span class="nn">tempfile</span>
             <span class="n">temp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.gif&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------------------------&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------------------------&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save_animation</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">temp</span>
 
@@ -624,7 +637,7 @@ document.write(`
                 <span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 
             <span class="k">def</span> <span class="nf">configure_video_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Showing video not supported.&#39;</span><span class="p">)</span>
+                <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Showing video not supported.&#39;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;.gif&#39;</span><span class="p">:</span>
                 <span class="n">configure_gif_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -658,6 +671,9 @@ document.write(`
                 <span class="n">configure_video_window</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
             <span class="k">def</span> <span class="nf">on_activate</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">save_path</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;------------------------------&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;------------------------------&#39;</span><span class="p">)</span>
                 <span class="n">win</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ApplicationWindow</span><span class="p">(</span><span class="n">application</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
                 <span class="c1">############################</span>
                 <span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">GdkPixbuf</span>

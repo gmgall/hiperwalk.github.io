@@ -26,9 +26,6 @@ hiperwalk.QuantumWalk
           ~QuantumWalk.get_marked
        
        
-          ~QuantumWalk.hilbert_space_dimension
-       
-       
           ~QuantumWalk.ket
        
        

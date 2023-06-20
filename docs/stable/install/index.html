@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Install &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>Install &#8212; Hiperwalk 2.0a1 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
     <script src="../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'install/index';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.readthedocs.io/en/latest/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -349,13 +349,17 @@ document.write(`
                   
   <section id="install">
 <h1>Install<a class="headerlink" href="#install" title="Permalink to this heading">#</a></h1>
-<p>Hiperwalk is built on top of some Python libraries.
+<p>HiperWalk is built on top of some Python libraries.
 By just installing the Python libraries,
-Hiperwalk does not make use of High-Performance Computing (HPC).
-If an installating with HPC support is desired,
-you can jump to <a class="reference internal" href="#docs-install-hpc-prerequisites"><span class="std std-ref">HPC Prerequisites</span></a>
-before installing Hiperwalk.</p>
-<p>In this page we describe the process of installing Hiperwalk in a
+HiperWalk does not make use of High-Performance Computing (HPC).
+If an installating without support for HPC is desired,
+you can jump to <a class="reference internal" href="#docs-install-hiperwalk"><span class="std std-ref">HiperWalk</span></a>.</p>
+<p>For supporting HPC,
+HiperWalk uses
+<a class="reference external" href="https://github.com/paulomotta/neblina-core">neblina-core</a>,
+and <a class="reference external" href="https://github.com/paulomotta/pyneblina">pyneblina</a>.
+Although a computer with a <strong>GPU compatible with CUDA</strong> is necessary.</p>
+<p>In this page we describe the process of installing HiperWalk in a
 freshly installed Ubuntu 20.04 operating system.
 We will describe the process of identifying the GPU, and
 installing the GPU drivers, neblina-core, pyneblina, and
@@ -366,37 +370,8 @@ the necessary Python libraries.</p>
 <p>Support for Ubuntu 22.04 is under development.
 Contributions are welcomed.</p>
 </div>
-<section id="hiperwalk">
-<span id="docs-install-hiperwalk"></span><h2>Hiperwalk<a class="headerlink" href="#hiperwalk" title="Permalink to this heading">#</a></h2>
-<p>Hiperwalk can be easily installed via pip.
-First of all, install pip.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
-</pre></div>
-</div>
-<p>The following command
-install Hiperwalk and all its Python dependencies.
-Namely
-<a class="reference external" href="https://numpy.org/">numpy</a>,
-<a class="reference external" href="https://scipy.org/">scipy</a>,
-<a class="reference external" href="https://networkx.org/">networkx</a>, and
-<a class="reference external" href="https://matplotlib.org/">matplotlib</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If you have an old version of these packages,
-it will be probably updated.
-If you do not wish this to happen, we recommend you to
-<a class="reference external" href="https://docs.python.org/3/library/venv.html">create a virtual environment</a>.</p>
-</div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>hiperwalk
-</pre></div>
-</div>
-<p>To test if it the installation was successful,
-you can execute any code in
-<a class="reference external" href="https://`https://github.com/hiperwalk/hiperwalk/tree/2.0.x/examples">repository examples directory</a>
-or go to the <a class="reference internal" href="../tutorial/index.html#docs-tutorial"><span class="std std-ref">Tutorial</span></a>.</p>
-</section>
-<section id="hpc-prerequisites">
-<span id="docs-install-hpc-prerequisites"></span><h2>HPC Prerequisites<a class="headerlink" href="#hpc-prerequisites" title="Permalink to this heading">#</a></h2>
+<section id="prerequisites">
+<span id="docs-install-prerequisites"></span><h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h2>
 <p>Beforehand, it is recommended to update and upgrade the Ubuntu packages.
 Execute</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
@@ -485,11 +460,6 @@ This can be done simply by running the command</p>
 </section>
 <section id="installing-neblina-core-and-pyneblina">
 <h2>Installing neblina-core And pyneblina<a class="headerlink" href="#installing-neblina-core-and-pyneblina" title="Permalink to this heading">#</a></h2>
-<p>For HPC support,
-Hiperwalk uses
-<a class="reference external" href="https://github.com/paulomotta/neblina-core">neblina-core</a>,
-and <a class="reference external" href="https://github.com/paulomotta/pyneblina">pyneblina</a>.
-Although a computer with a <strong>GPU compatible with CUDA</strong> is necessary.</p>
 <p>We compile the information in
 <a class="reference external" href="https://paulomotta.pro.br/wp/2021/05/01/pyneblina-and-neblina-core/">Paulo Motta’s blog</a>,
 <a class="reference external" href="https://github.com/paulomotta/neblina-core">neblina-core github</a>,
@@ -549,6 +519,82 @@ run the test.</p>
 </div>
 </section>
 </section>
+<section id="hiperwalk">
+<span id="docs-install-hiperwalk"></span><h2>HiperWalk<a class="headerlink" href="#hiperwalk" title="Permalink to this heading">#</a></h2>
+<p>As stated previously,
+HiperWalk is built on top of some Python libraries.
+Before installing HiperWalk,
+we must install these libraries.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are installing HiperWalk with no HPC support,
+you probably did not install <code class="docutils literal notranslate"><span class="pre">pip</span></code> as mentioned in
+<a class="reference internal" href="#docs-install-prerequisites"><span class="std std-ref">Prerequisites</span></a>.
+If that’s the case, run the following command.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
+</pre></div>
+</div>
+</div>
+<p>HiperWalk requires
+<a class="reference external" href="https://numpy.org/">numpy</a>,
+<a class="reference external" href="https://scipy.org/">scipy</a>,
+<a class="reference external" href="https://networkx.org/">networkx</a>, and
+<a class="reference external" href="https://matplotlib.org/">matplotlib</a>.
+To install these libraries run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>numpy
+pip3<span class="w"> </span>install<span class="w"> </span>scipy
+pip3<span class="w"> </span>install<span class="w"> </span>networkx
+pip3<span class="w"> </span>install<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+<p>Then, choose which version you are going to install.
+The stable version or
+the latest version (under development).</p>
+<section id="stable">
+<h3>Stable<a class="headerlink" href="#stable" title="Permalink to this heading">#</a></h3>
+<p>Clone the HiperWalk repository branch tagged as stable.
+For example, run the following command
+in the directory where neblina-core and pyneblina are –
+most likely the home directory.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>stable<span class="w"> </span>https://github.com/hiperwalk/hiperwalk.git
+</pre></div>
+</div>
+</section>
+<section id="latest">
+<h3>Latest<a class="headerlink" href="#latest" title="Permalink to this heading">#</a></h3>
+<p>Clone the HiperWalk repository –
+e.g. in the home directory where neblina-core and pyneblina are.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hiperwalk/hiperwalk.git
+</pre></div>
+</div>
+</section>
+<section id="testing">
+<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">#</a></h3>
+<p>The installation is finished.
+To test if it was successful,
+go into the <code class="docutils literal notranslate"><span class="pre">hiperwalk/examples/</span></code> directory
+and execute the test accoring to you installation.
+If you performed the complete installation (with HPC support),
+execute</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./run_all.sh
+</pre></div>
+</div>
+<p>If you installed the standalone version (with no HPC support),
+execute</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./run_nonhpc.sh
+</pre></div>
+</div>
+<p>There are some examples in the <code class="docutils literal notranslate"><span class="pre">hiperwalk/examples/</span></code> directory.
+You may execute any code inside this directory.
+For instance,</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/hiperwalk/examples/
+python3<span class="w"> </span>non-hpc-coined-line.py
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 
@@ -598,8 +644,7 @@ run the test.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hiperwalk">Hiperwalk</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hpc-prerequisites">HPC Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-driver">GPU Driver</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nvidia-toolkit">NVIDIA Toolkit</a></li>
 </ul>
@@ -607,6 +652,12 @@ run the test.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-neblina-core-and-pyneblina">Installing neblina-core And pyneblina</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">neblina-core</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">pyneblina</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hiperwalk">HiperWalk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable">Stable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latest">Latest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
 </ul>
 </li>
 </ul>

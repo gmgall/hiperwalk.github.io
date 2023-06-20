@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.quantum_walk.quantum_walk &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>hiperwalk.quantum_walk.quantum_walk &#8212; Hiperwalk 2.0a1 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/quantum_walk/quantum_walk';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.readthedocs.io/en/latest/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -371,12 +371,15 @@ document.write(`
 <span class="sd">        It can be the graph itself (:class:`hiperwalk.graph.Graph`) or</span>
 <span class="sd">        its adjacency matrix (:class:`scipy.sparse.csr_array`).</span>
 
-<span class="sd">    adjacency : :class:`scipy.sparse.csr_array`, optional</span>
-<span class="sd">        .. deprecated:: 2.0a1</span>
-<span class="sd">            It will be removed in version 2.0.</span>
-<span class="sd">            Use ``graph`` instead.</span>
-
+<span class="sd">    adjacency : optional</span>
 <span class="sd">        The adjacency matrix.</span>
+<span class="sd">        It is deprecated. Use ``graph`` instead.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    hilb_dim : int, default=0</span>
+<span class="sd">        Hilbert Space dimension.</span>
+<span class="sd">        It must be updated by the subclass&#39; ``__init__``.</span>
 
 <span class="sd">    Warns</span>
 <span class="sd">    -----</span>
@@ -392,8 +395,7 @@ document.write(`
 <span class="sd">    -----</span>
 
 <span class="sd">    .. todo::</span>
-<span class="sd">        * List the that methods must be overwritten.</span>
-<span class="sd">        * Accept other types as ``graph`` such as numpy array</span>
+<span class="sd">        The following methods must be overwritten.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -455,7 +457,7 @@ document.write(`
 <span class="sd">        Generate the uniform state.</span>
 
 <span class="sd">        The state is constructed based on the ``hilb_dim`` attribute.</span>
-<span class="sd">        The uniform initial state is the state where</span>
+<span class="sd">        The uniform initial condition is the state where</span>
 <span class="sd">        all entries have the same amplitude.</span>
 
 <span class="sd">        Returns</span>
@@ -464,7 +466,7 @@ document.write(`
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
-<span class="sd">        The uniform initial state is the state</span>
+<span class="sd">        The uniform initial condition is the state</span>
 
 <span class="sd">        .. math::</span>
 
@@ -487,7 +489,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">marked</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>
             <span class="n">marked</span> <span class="o">=</span> <span class="p">[</span><span class="n">marked</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_marked</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">marked</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_marked</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">marked</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="QuantumWalk.get_marked"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.QuantumWalk.get_marked.html#hiperwalk.QuantumWalk.get_marked">[docs]</a>    <span class="k">def</span> <span class="nf">get_marked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -694,13 +696,12 @@ document.write(`
         <span class="k">return</span> <span class="p">(</span><span class="s1">&#39;hiperwalk.quantum_walk._pyneblina_interface&#39;</span>
                 <span class="ow">in</span> <span class="n">sys_modules</span><span class="p">)</span>
 
-<div class="viewcode-block" id="QuantumWalk.simulate"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.QuantumWalk.simulate.html#hiperwalk.QuantumWalk.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">initial_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">initial_condition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hpc</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="QuantumWalk.simulate"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.QuantumWalk.simulate.html#hiperwalk.QuantumWalk.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">initial_condition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hpc</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simulates the quantum walk.</span>
 
 <span class="sd">        Simulates the quantum walk applying the evolution operator</span>
-<span class="sd">        multiple times to the initial state.</span>
+<span class="sd">        multiple times to the initial condition.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -721,15 +722,9 @@ document.write(`
 <span class="sd">                to time ``end`` (inclusive)</span>
 <span class="sd">                that is multiple of ``step``.</span>
 
-<span class="sd">        initial_state : :class:`numpy.array`, default=None</span>
-<span class="sd">            The initial state which the evolution operator</span>
+<span class="sd">        initial_condition : :class:`numpy.array`, default=None</span>
+<span class="sd">            The initial condition which the evolution operator</span>
 <span class="sd">            is going to be applied to.</span>
-
-<span class="sd">        initial_condition :</span>
-<span class="sd">            .. deprecated:: 2.0a4</span>
-<span class="sd">                It will be removed in Hiperwalk 2.0</span>
-<span class="sd">                due to nomenclature consistency.</span>
-<span class="sd">                Use ``initial_state`` instead.</span>
 
 <span class="sd">        hpc : bool, default=True</span>
 <span class="sd">            Whether or not to use neblina&#39;s high-performance computing</span>
@@ -747,7 +742,7 @@ document.write(`
 <span class="sd">        ValueError</span>
 <span class="sd">            If any of the following occurs</span>
 <span class="sd">            * ``time=None``.</span>
-<span class="sd">            * ``initial_state=None``.</span>
+<span class="sd">            * ``initial_condition=None``.</span>
 <span class="sd">            * ``evolution_operator=None`` and it was no set previously.</span>
 
 <span class="sd">        See Also</span>
@@ -758,7 +753,7 @@ document.write(`
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        The walk is simulated by applying the</span>
-<span class="sd">        evolution operator to the initial state multiple times.</span>
+<span class="sd">        evolution operator to the initial condition multiple times.</span>
 <span class="sd">        The maximum and intermediate applications</span>
 <span class="sd">        are describred by ``time``.</span>
 
@@ -777,19 +772,13 @@ document.write(`
                 <span class="o">+</span> <span class="s2">&quot;Must be an int or tuple of int.&quot;</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">initial_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">initial_condition</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;``initial_state`` not specified. &quot;</span>
-                    <span class="o">+</span> <span class="s2">&quot;Expected a np.array.&quot;</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">initial_state</span> <span class="o">=</span> <span class="n">initial_condition</span>
-                <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">`initial_condition` is deprecated. &#39;</span>
-                     <span class="o">+</span> <span class="s1">&#39;It will be removed in version 2.0. &#39;</span>
-                     <span class="o">+</span> <span class="s1">&#39;Use `initial_state` instead.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">initial_condition</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;``initial_condition`` not specified. &quot;</span>
+                <span class="o">+</span> <span class="s2">&quot;Expected a np.array.&quot;</span>
+            <span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hilb_dim</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_condition</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hilb_dim</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Initial condition has invalid dimension. &quot;</span>
                 <span class="o">+</span> <span class="s2">&quot;Expected an np.array with length &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hilb_dim</span><span class="p">)</span>
@@ -800,13 +789,19 @@ document.write(`
         <span class="c1">###########################</span>
 
         <span class="k">def</span> <span class="nf">__prepare_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preparing engine&quot;</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="n">hpc</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_simul_mat</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">send_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_simul_vec</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">send_vector</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simul_vec</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">send_vector</span><span class="p">(</span><span class="n">initial_condition</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_simul_mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_simul_vec</span> <span class="o">=</span> <span class="n">initial_state</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simul_vec</span> <span class="o">=</span> <span class="n">initial_condition</span>
+
+            <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">__simulate_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
@@ -814,6 +809,9 @@ document.write(`
 <span class="sd">            to the simulation vector.</span>
 <span class="sd">            Simulation vector is then updated.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simulating steps&quot;</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="n">hpc</span><span class="p">:</span>
                 <span class="c1"># TODO: request multiple multiplications at once</span>
                 <span class="c1">#       to neblina-core</span>
@@ -827,7 +825,13 @@ document.write(`
 
                 <span class="c1"># TODO: compare with numpy.linalg.matrix_power</span>
 
+            <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
         <span class="k">def</span> <span class="nf">__save_simul_vec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving simulated vec&quot;</span><span class="p">)</span>
+
             <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="k">if</span> <span class="n">hpc</span><span class="p">:</span>
@@ -836,6 +840,9 @@ document.write(`
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">retrieve_vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_simul_vec</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simul_vec</span>
+
+            <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">ret</span>
 
@@ -855,6 +862,9 @@ document.write(`
 
         
         <span class="k">if</span> <span class="n">hpc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pyneblina_imported</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;IMPORTING PYNEBLINA&quot;</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span><span class="n">PYNEBLINA_IMPORT_ERROR_MSG</span><span class="p">)</span>
             <span class="n">hpc</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="n">__prepare_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -864,20 +874,20 @@ document.write(`
         <span class="n">num_states</span> <span class="o">-=</span> <span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">start</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">step</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
 
         <span class="c1"># create saved states matrix</span>
-        <span class="c1"># TODO: error: if initial state is int and</span>
+        <span class="c1"># TODO: error: if initial condition is int and</span>
         <span class="c1"># evolution operator is float, dtype is complex</span>
-        <span class="n">dtype</span> <span class="o">=</span> <span class="p">(</span><span class="n">initial_state</span><span class="o">.</span><span class="n">dtype</span> <span class="k">if</span>
-            <span class="n">initial_state</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="p">(</span><span class="n">initial_condition</span><span class="o">.</span><span class="n">dtype</span> <span class="k">if</span>
+            <span class="n">initial_condition</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span><span class="o">.</span><span class="n">dtype</span>
             <span class="k">else</span> <span class="nb">complex</span>
         <span class="p">)</span>
         <span class="n">saved_states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">initial_state</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
+            <span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">initial_condition</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
         <span class="p">)</span>
         <span class="n">state_index</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># index of the state to be saved</span>
 
         <span class="c1"># if save_initial_state:</span>
         <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">saved_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">saved_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_condition</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">state_index</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">num_states</span> <span class="o">-=</span> <span class="mi">1</span>
 
@@ -902,14 +912,8 @@ document.write(`
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_filter_valid_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">valid_kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">k</span> <span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_kwargs</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span> <span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_kwargs</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">}</span></div>
                 <span class="c1">#if kwargs.get(k) is not None}</span>
-
-<div class="viewcode-block" id="QuantumWalk.hilbert_space_dimension"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.QuantumWalk.hilbert_space_dimension.html#hiperwalk.QuantumWalk.hilbert_space_dimension">[docs]</a>    <span class="k">def</span> <span class="nf">hilbert_space_dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns dimension of the Hilbert space.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hilb_dim</span></div></div>
 </pre></div>
 
                 </article>

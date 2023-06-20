@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Development &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>Development &#8212; Hiperwalk 2.0a1 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
     <script src="../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'development/index';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.readthedocs.io/en/latest/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -347,22 +347,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="development">
-<span id="docs-development"></span><h1>Development<a class="headerlink" href="#development" title="Permalink to this heading">#</a></h1>
-<p>HiperWalk is built on top of some Python libraries.
-Before developing for HiperWalk,
-we must install these libraries.
-HiperWalk requires
-<a class="reference external" href="https://numpy.org/">numpy</a>,
-<a class="reference external" href="https://scipy.org/">scipy</a>,
-<a class="reference external" href="https://networkx.org/">networkx</a>, and
-<a class="reference external" href="https://matplotlib.org/">matplotlib</a>.
-To install these libraries run</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>numpy
-pip3<span class="w"> </span>install<span class="w"> </span>scipy
-pip3<span class="w"> </span>install<span class="w"> </span>networkx
-pip3<span class="w"> </span>install<span class="w"> </span>matplotlib
-</pre></div>
-</div>
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this heading">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is where the new features are developed.
 To contribute, clone the repository.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hiperwalk/hiperwalk.git
@@ -370,20 +355,10 @@ To contribute, clone the repository.</p>
 </div>
 <p>Then, make the desired alterations.
 And make a pull request.</p>
-<section id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">#</a></h2>
-<p>Tests are located into the <code class="docutils literal notranslate"><span class="pre">hiperwalk/tests/</span></code> directory.
-If you performed the complete installation (with HPC support),
-execute</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./run_all.sh
-</pre></div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Continuous model must be implemented.</p>
 </div>
-<p>If you installed the standalone version (with no HPC support),
-execute</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./run_nonhpc.sh
-</pre></div>
-</div>
-</section>
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">#</a></h2>
 <p>It is very likely that there are new features in the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.
@@ -471,7 +446,6 @@ Implementation using GTK 4.0 are postponed to the next release.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-requirements">Install Requirements</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-documentation">Generate Documentation</a></li>

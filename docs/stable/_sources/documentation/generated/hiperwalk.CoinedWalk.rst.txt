@@ -35,9 +35,6 @@ hiperwalk.CoinedWalk
           ~CoinedWalk.has_persistent_shift
        
        
-          ~CoinedWalk.hilbert_space_dimension
-       
-       
           ~CoinedWalk.ket
        
        

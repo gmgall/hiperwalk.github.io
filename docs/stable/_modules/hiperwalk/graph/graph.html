@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.graph.graph &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>hiperwalk.graph.graph &#8212; Hiperwalk 2.0a1 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/graph/graph';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.readthedocs.io/en/latest/_static/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -345,6 +345,7 @@ document.write(`
                   
   <h1>Source code for hiperwalk.graph.graph</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <span class="k">def</span> <span class="nf">_binary_search</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -389,102 +390,15 @@ document.write(`
 <span class="sd">    Makes a plethora of methods available.</span>
 <span class="sd">    These methods may be used by a Quantum Walk model for</span>
 <span class="sd">    generating a valid walk.</span>
+<span class="sd">    The default arguments for a given model are given by the graph.</span>
+<span class="sd">    The Quantum Walk model is ignorant with this regard.</span>
 
 <span class="sd">    This class may be passed as argument to plotting methods.</span>
 <span class="sd">    Then the default representation for the specific graph will be shown.</span>
-
-<span class="sd">    The recommended parameter type is</span>
-<span class="sd">    :class:`scipy.sparse.csr_array` using ``dtype=np.int8``</span>
-<span class="sd">    with 1 denoting adjacency and 0 denoting non-adjacency.</span>
-<span class="sd">    If any entry is different from 0 or 1,</span>
-<span class="sd">    some methods may not work as expected.</span>
-
-<span class="sd">    Each edge of a given graph :math:`G(V, E)`</span>
-<span class="sd">    is associated with two arcs in the graph :math:`\vec{G}(V, A)`</span>
-<span class="sd">    where</span>
-
-<span class="sd">    .. math::</span>
-<span class="sd">        \begin{align*}</span>
-<span class="sd">            A = \bigcup_{(v,u) \in E} \{(v, u), (u, v)\}.</span>
-<span class="sd">        \end{align*}</span>
-
-<span class="sd">    Each arc has a label (number).</span>
-<span class="sd">    The labels are ordered as follows.</span>
-<span class="sd">    Let :math:`(v_1, u_1)` and :math:`(v_2, u_2&#39;)`</span>
-<span class="sd">    be arcs with labels :math:`a_1` and :math:`a_2`, respectively.</span>
-<span class="sd">    Then :math:`a_1 &lt; a_2` if and only if</span>
-<span class="sd">    if either :math:`v_1 &lt; v_2` or</span>
-<span class="sd">    :math:`v_1 = v_2` and :math:`u_1 &lt; u_2`.</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">        The arc ordering may change for specific graphs.</span>
-
-<span class="sd">    For example, the graph :math:`G(V, E)` shown in</span>
-<span class="sd">    Figure 1 has adjacency matrix ``adj_matrix``.</span>
-
-<span class="sd">    .. testsetup::</span>
-
-<span class="sd">        import numpy as np</span>
-
-<span class="sd">    &gt;&gt;&gt; adj_matrix = np.array([</span>
-<span class="sd">    ...     [0, 1, 0, 0],</span>
-<span class="sd">    ...     [1, 0, 1, 1],</span>
-<span class="sd">    ...     [0, 1, 0, 1],</span>
-<span class="sd">    ...     [0, 1, 1, 0]])</span>
-<span class="sd">    &gt;&gt;&gt; adj_matrix</span>
-<span class="sd">    array([[0, 1, 0, 0],</span>
-<span class="sd">           [1, 0, 1, 1],</span>
-<span class="sd">           [0, 1, 0, 1],</span>
-<span class="sd">           [0, 1, 1, 0]])</span>
-
-<span class="sd">    .. graphviz:: ../../graphviz/graph-example.dot</span>
-<span class="sd">        :align: center</span>
-<span class="sd">        :layout: neato</span>
-<span class="sd">        :caption: Figure 1</span>
-
-<span class="sd">    The corresponding arcs are</span>
-
-<span class="sd">    &gt;&gt;&gt; arcs = [(i, j) for i in range(4)</span>
-<span class="sd">    ...                for j in range(4) if adj_matrix[i,j] == 1]</span>
-<span class="sd">    &gt;&gt;&gt; arcs</span>
-<span class="sd">    [(0, 1), (1, 0), (1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)]</span>
-
-<span class="sd">    Note that ``arcs`` is already sorted, hence the labels are</span>
-
-<span class="sd">    &gt;&gt;&gt; arcs_labels = {arcs[i]: i for i in range(len(arcs))}</span>
-<span class="sd">    &gt;&gt;&gt; arcs_labels</span>
-<span class="sd">    {(0, 1): 0, (1, 0): 1, (1, 2): 2, (1, 3): 3, (2, 1): 4, (2, 3): 5, (3, 1): 6, (3, 2): 7}</span>
-
-<span class="sd">    The arcs labels are illustrated in Figure 2.</span>
-
-<span class="sd">    .. graphviz:: ../../graphviz/graph-arcs.dot</span>
-<span class="sd">        :align: center</span>
-<span class="sd">        :layout: neato</span>
-<span class="sd">        :caption: Figure 2</span>
-
-<span class="sd">    If we substitute the arcs labels into the adjacency matrix,</span>
-<span class="sd">    we obtain the matrix ``adj_labels``.</span>
-
-<span class="sd">    &gt;&gt;&gt; adj_labels = [[arcs_labels[(i,j)] if (i,j) in arcs_labels</span>
-<span class="sd">    ...                                   else &#39;&#39; for j in range(4)]</span>
-<span class="sd">    ...               for i in range(4)]</span>
-<span class="sd">    &gt;&gt;&gt; adj_labels = np.matrix(adj_labels)</span>
-<span class="sd">    &gt;&gt;&gt; adj_labels</span>
-<span class="sd">    matrix([[&#39;&#39;, &#39;0&#39;, &#39;&#39;, &#39;&#39;],</span>
-<span class="sd">            [&#39;1&#39;, &#39;&#39;, &#39;2&#39;, &#39;3&#39;],</span>
-<span class="sd">            [&#39;&#39;, &#39;4&#39;, &#39;&#39;, &#39;5&#39;],</span>
-<span class="sd">            [&#39;&#39;, &#39;6&#39;, &#39;7&#39;, &#39;&#39;]], dtype=&#39;&lt;U21&#39;)</span>
-
-<span class="sd">    Note that, intuitively,</span>
-<span class="sd">    the arcs are labeled in left-to-right top-to-bottom fashion.</span>
-
-<span class="sd">    .. todo::</span>
-<span class="sd">        * Check if valid adjacency matrix</span>
-<span class="sd">        * Add option: numpy dense matrix as parameters.</span>
-<span class="sd">        * Add option: networkx graph as parameter.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Graph.__init__"><a class="viewcode-back" href="../../../documentation/generated/hiperwalk.Graph.html#hiperwalk.Graph.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adj_matrix</span><span class="p">):</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Check if valid adjacency matrix&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span> <span class="o">=</span> <span class="n">adj_matrix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coloring</span> <span class="o">=</span> <span class="kc">None</span></div>
 
@@ -513,43 +427,11 @@ document.write(`
         <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="Graph.arc_label"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.arc_label.html#hiperwalk.Graph.arc_label">[docs]</a>    <span class="k">def</span> <span class="nf">arc_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns arc label (number).</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        tail: int</span>
-<span class="sd">            Tail of the arc.</span>
-
-<span class="sd">        head: int</span>
-<span class="sd">            Head of the arc.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        label: int</span>
-<span class="sd">            Arc label.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_binary_search</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span>
                               <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indptr</span><span class="p">[</span><span class="n">tail</span><span class="p">],</span>
                               <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indptr</span><span class="p">[</span><span class="n">tail</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Graph.arc"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.arc.html#hiperwalk.Graph.arc">[docs]</a>    <span class="k">def</span> <span class="nf">arc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Arc in arc notation.</span>
-
-<span class="sd">        Given the arc label,</span>
-<span class="sd">        returns it in the ``(tail, head)`` notation.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        label: int</span>
-<span class="sd">            Arc label (number)</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        (int, int)</span>
-<span class="sd">            Arc in the arc notation ``(tail, head)``.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">adj_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span>
         <span class="n">head</span> <span class="o">=</span> <span class="n">adj_matrix</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
         <span class="c1"># TODO: binary search</span>
@@ -559,98 +441,32 @@ document.write(`
         <span class="k">return</span> <span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">head</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Graph.next_arc"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.next_arc.html#hiperwalk.Graph.next_arc">[docs]</a>    <span class="k">def</span> <span class="nf">next_arc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arc</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Next arc in an embeddable graph.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        arc</span>
-<span class="sd">            The arc in any of the following notations.</span>
-
-<span class="sd">            * arc notation: tuple of vertices</span>
-<span class="sd">                In ``(tail, head)`` format where</span>
-<span class="sd">                ``tail`` and ``head`` must be valid vertices.</span>
-<span class="sd">            * arc label: int.</span>
-<span class="sd">                The arc label (number).</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Next arc in the same notation as the ``arc`` argument.</span>
-
-<span class="sd">        See Also</span>
-<span class="sd">        --------</span>
-<span class="sd">        arc</span>
-<span class="sd">        arc_label</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># implemented only if is embeddable</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span></div>
 
 <div class="viewcode-block" id="Graph.previous_arc"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.previous_arc.html#hiperwalk.Graph.previous_arc">[docs]</a>    <span class="k">def</span> <span class="nf">previous_arc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arc</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Previous arc in an embeddable graph.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        arc</span>
-<span class="sd">            The arc in any of the following notations.</span>
-
-<span class="sd">            * arc notation: tuple of vertices</span>
-<span class="sd">                In ``(tail, head)`` format where</span>
-<span class="sd">                ``tail`` and ``head`` must be valid vertices.</span>
-<span class="sd">            * arc label: int.</span>
-<span class="sd">                The arc label (number).</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Previous arc in the same notation as the ``arc`` argument.</span>
-
-<span class="sd">        See Also</span>
-<span class="sd">        --------</span>
-<span class="sd">        arc</span>
-<span class="sd">        arc_label</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># implemented only if is embeddable</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span></div>
 
 <div class="viewcode-block" id="Graph.neighbors"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.neighbors.html#hiperwalk.Graph.neighbors">[docs]</a>    <span class="k">def</span> <span class="nf">neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns all neighbors of the given vertex.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indptr</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span>
         <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indptr</span><span class="p">[</span><span class="n">vertex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Graph.arcs_with_tail"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.arcs_with_tail.html#hiperwalk.Graph.arcs_with_tail">[docs]</a>    <span class="k">def</span> <span class="nf">arcs_with_tail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns all arcs that have the given tail.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">arcs_lim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indptr</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">arcs_lim</span><span class="p">[</span><span class="n">tail</span><span class="p">],</span> <span class="n">arcs_lim</span><span class="p">[</span><span class="n">tail</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Graph.number_of_vertices"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.number_of_vertices.html#hiperwalk.Graph.number_of_vertices">[docs]</a>    <span class="k">def</span> <span class="nf">number_of_vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Cardinality of vertex set.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Graph.number_of_arcs"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.number_of_arcs.html#hiperwalk.Graph.number_of_arcs">[docs]</a>    <span class="k">def</span> <span class="nf">number_of_arcs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Cardinality of arc set.</span>
-
-<span class="sd">        For simple graphs, this is twice the number of edges.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Graph.number_of_edges"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.number_of_edges.html#hiperwalk.Graph.number_of_edges">[docs]</a>    <span class="k">def</span> <span class="nf">number_of_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Cardinality of edge set.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="Graph.degree"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Graph.degree.html#hiperwalk.Graph.degree">[docs]</a>    <span class="k">def</span> <span class="nf">degree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Degree of given vertex.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">indptr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_matrix</span><span class="o">.</span><span class="n">indptr</span>
         <span class="k">return</span> <span class="n">indptr</span><span class="p">[</span><span class="n">vertex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">indptr</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span></div></div>
 </pre></div>

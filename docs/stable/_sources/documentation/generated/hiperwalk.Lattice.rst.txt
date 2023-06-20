@@ -32,6 +32,9 @@ hiperwalk.Lattice
           ~Lattice.arcs_with_tail
        
        
+          ~Lattice.central_vertex
+       
+       
           ~Lattice.default_coin
        
        

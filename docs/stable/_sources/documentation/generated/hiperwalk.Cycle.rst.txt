@@ -38,6 +38,9 @@ hiperwalk.Cycle
           ~Cycle.embeddable
        
        
+          ~Cycle.get_default_coin
+       
+       
           ~Cycle.neighbors
        
        
