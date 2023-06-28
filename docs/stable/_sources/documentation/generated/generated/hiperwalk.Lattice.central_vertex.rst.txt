@@ -1,6 +1,0 @@
-hiperwalk.Lattice.central\_vertex
-=================================
-
-.. currentmodule:: hiperwalk
-
-.. automethod:: Lattice.central_vertex

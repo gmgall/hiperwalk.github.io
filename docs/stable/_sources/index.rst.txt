@@ -6,8 +6,6 @@
 Welcome to Hiperwalk!
 =====================
 
-**Testing docs building process against a tag**
-
 **Hiperwalk** (High-performance Quantum Walk Simulator) is a freeware open-source program that
 allows the user to perform simulations of quantum walks on graphs using HPC.
 The user can use the parallel resources of the computer,

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>hiperwalk.Lattice.central_vertex &#8212; Hiperwalk 2.0a0 documentation</title>
+    <title>hiperwalk.QuantumWalk.hilbert_space_dimension &#8212; Hiperwalk 2.0a4 documentation</title>
   
   
   
@@ -38,15 +38,15 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/sphinx_highlight.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'documentation/generated/generated/hiperwalk.Lattice.central_vertex';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'documentation/generated/generated/hiperwalk.QuantumWalk.hilbert_space_dimension';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="hiperwalk.Lattice.default_coin" href="hiperwalk.Lattice.default_coin.html" />
-    <link rel="prev" title="hiperwalk.Lattice.arcs_with_tail" href="hiperwalk.Lattice.arcs_with_tail.html" />
+    <link rel="next" title="hiperwalk.QuantumWalk.ket" href="hiperwalk.QuantumWalk.ket.html" />
+    <link rel="prev" title="hiperwalk.QuantumWalk.get_marked" href="hiperwalk.QuantumWalk.get_marked.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -117,7 +117,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      latest  <!-- this text may get changed later by javascript -->
+      stable  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -303,7 +303,7 @@ document.write(`
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../graph.html">Graphs</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../graph.html">Graphs</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../hiperwalk.Graph.html">hiperwalk.Graph</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Graph.arc.html">hiperwalk.Graph.arc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Graph.arc_label.html">hiperwalk.Graph.arc_label</a></li>
@@ -326,7 +326,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.default_coin.html">hiperwalk.Cycle.default_coin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.degree.html">hiperwalk.Cycle.degree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.embeddable.html">hiperwalk.Cycle.embeddable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.get_default_coin.html">hiperwalk.Cycle.get_default_coin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.neighbors.html">hiperwalk.Cycle.neighbors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.next_arc.html">hiperwalk.Cycle.next_arc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.number_of_arcs.html">hiperwalk.Cycle.number_of_arcs</a></li>
@@ -335,12 +334,11 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Cycle.previous_arc.html">hiperwalk.Cycle.previous_arc</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="../hiperwalk.Lattice.html">hiperwalk.Lattice</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../hiperwalk.Lattice.html">hiperwalk.Lattice</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Lattice.arc.html">hiperwalk.Lattice.arc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Lattice.arc_direction.html">hiperwalk.Lattice.arc_direction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Lattice.arc_label.html">hiperwalk.Lattice.arc_label</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Lattice.arcs_with_tail.html">hiperwalk.Lattice.arcs_with_tail</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">hiperwalk.Lattice.central_vertex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Lattice.default_coin.html">hiperwalk.Lattice.default_coin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Lattice.degree.html">hiperwalk.Lattice.degree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Lattice.dimensions.html">hiperwalk.Lattice.dimensions</a></li>
@@ -363,7 +361,6 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Line.default_coin.html">hiperwalk.Line.default_coin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Line.degree.html">hiperwalk.Line.degree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Line.embeddable.html">hiperwalk.Line.embeddable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="hiperwalk.Line.get_default_coin.html">hiperwalk.Line.get_default_coin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Line.neighbors.html">hiperwalk.Line.neighbors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Line.next_arc.html">hiperwalk.Line.next_arc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.Line.number_of_arcs.html">hiperwalk.Line.number_of_arcs</a></li>
@@ -374,10 +371,11 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../quantum_walk.html">Quantum Walks</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../hiperwalk.QuantumWalk.html">hiperwalk.QuantumWalk</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../quantum_walk.html">Quantum Walks</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../hiperwalk.QuantumWalk.html">hiperwalk.QuantumWalk</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.QuantumWalk.get_evolution.html">hiperwalk.QuantumWalk.get_evolution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.QuantumWalk.get_marked.html">hiperwalk.QuantumWalk.get_marked</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">hiperwalk.QuantumWalk.hilbert_space_dimension</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.QuantumWalk.ket.html">hiperwalk.QuantumWalk.ket</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.QuantumWalk.probability.html">hiperwalk.QuantumWalk.probability</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.QuantumWalk.probability_distribution.html">hiperwalk.QuantumWalk.probability_distribution</a></li>
@@ -394,6 +392,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.CoinedWalk.get_marked.html">hiperwalk.CoinedWalk.get_marked</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.CoinedWalk.get_shift.html">hiperwalk.CoinedWalk.get_shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.CoinedWalk.has_persistent_shift.html">hiperwalk.CoinedWalk.has_persistent_shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hiperwalk.CoinedWalk.hilbert_space_dimension.html">hiperwalk.CoinedWalk.hilbert_space_dimension</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.CoinedWalk.ket.html">hiperwalk.CoinedWalk.ket</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.CoinedWalk.probability.html">hiperwalk.CoinedWalk.probability</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.CoinedWalk.probability_distribution.html">hiperwalk.CoinedWalk.probability_distribution</a></li>
@@ -411,6 +410,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.ContinuousWalk.get_gamma.html">hiperwalk.ContinuousWalk.get_gamma</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.ContinuousWalk.get_hamiltonian.html">hiperwalk.ContinuousWalk.get_hamiltonian</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.ContinuousWalk.get_marked.html">hiperwalk.ContinuousWalk.get_marked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hiperwalk.ContinuousWalk.hilbert_space_dimension.html">hiperwalk.ContinuousWalk.hilbert_space_dimension</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.ContinuousWalk.ket.html">hiperwalk.ContinuousWalk.ket</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.ContinuousWalk.probability.html">hiperwalk.ContinuousWalk.probability</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hiperwalk.ContinuousWalk.probability_distribution.html">hiperwalk.ContinuousWalk.probability_distribution</a></li>
@@ -482,9 +482,9 @@ document.write(`
     <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
     
     
-    <li class="breadcrumb-item"><a href="../hiperwalk.Lattice.html" class="nav-link">hiperwalk.Lattice</a></li>
+    <li class="breadcrumb-item"><a href="../hiperwalk.QuantumWalk.html" class="nav-link">hiperwalk.QuantumWalk</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">hiperwalk.Lattice.central_vertex</li>
+    <li class="breadcrumb-item active" aria-current="page">hiperwalk.QuantumWalk.hilbert_space_dimension</li>
   </ul>
 </nav>
 </div>
@@ -501,12 +501,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="hiperwalk-lattice-central-vertex">
-<h1>hiperwalk.Lattice.central_vertex<a class="headerlink" href="#hiperwalk-lattice-central-vertex" title="Permalink to this heading">#</a></h1>
+  <section id="hiperwalk-quantumwalk-hilbert-space-dimension">
+<h1>hiperwalk.QuantumWalk.hilbert_space_dimension<a class="headerlink" href="#hiperwalk-quantumwalk-hilbert-space-dimension" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
-<dt class="sig sig-object py" id="hiperwalk.Lattice.central_vertex">
-<span class="sig-prename descclassname"><span class="pre">Lattice.</span></span><span class="sig-name descname"><span class="pre">central_vertex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hiperwalk/graph/lattice.html#Lattice.central_vertex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hiperwalk.Lattice.central_vertex" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="hiperwalk.QuantumWalk.hilbert_space_dimension">
+<span class="sig-prename descclassname"><span class="pre">QuantumWalk.</span></span><span class="sig-name descname"><span class="pre">hilbert_space_dimension</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hiperwalk/quantum_walk/quantum_walk.html#QuantumWalk.hilbert_space_dimension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hiperwalk.QuantumWalk.hilbert_space_dimension" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns dimension of the Hilbert space.</p>
+</dd></dl>
 
 </section>
 
@@ -522,20 +523,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="hiperwalk.Lattice.arcs_with_tail.html"
+       href="hiperwalk.QuantumWalk.get_marked.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">hiperwalk.Lattice.arcs_with_tail</p>
+        <p class="prev-next-title">hiperwalk.QuantumWalk.get_marked</p>
       </div>
     </a>
     <a class="right-next"
-       href="hiperwalk.Lattice.default_coin.html"
+       href="hiperwalk.QuantumWalk.ket.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">hiperwalk.Lattice.default_coin</p>
+        <p class="prev-next-title">hiperwalk.QuantumWalk.ket</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -557,13 +558,13 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hiperwalk.Lattice.central_vertex"><code class="docutils literal notranslate"><span class="pre">Lattice.central_vertex()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hiperwalk.QuantumWalk.hilbert_space_dimension"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.hilbert_space_dimension()</span></code></a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../../../_sources/documentation/generated/generated/hiperwalk.Lattice.central_vertex.rst.txt">
+    <a href="../../../_sources/documentation/generated/generated/hiperwalk.QuantumWalk.hilbert_space_dimension.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

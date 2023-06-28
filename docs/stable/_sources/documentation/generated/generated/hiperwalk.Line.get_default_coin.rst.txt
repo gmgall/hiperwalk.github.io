@@ -1,6 +1,0 @@
-hiperwalk.Line.get\_default\_coin
-=================================
-
-.. currentmodule:: hiperwalk
-
-.. automethod:: Line.get_default_coin

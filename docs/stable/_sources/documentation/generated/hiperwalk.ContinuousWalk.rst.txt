@@ -32,6 +32,9 @@ hiperwalk.ContinuousWalk
           ~ContinuousWalk.get_marked
        
        
+          ~ContinuousWalk.hilbert_space_dimension
+       
+       
           ~ContinuousWalk.ket
        
        

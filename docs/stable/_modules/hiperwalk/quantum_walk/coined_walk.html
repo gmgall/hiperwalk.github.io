@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.quantum_walk.coined_walk &#8212; Hiperwalk 2.0a0 documentation</title>
+    <title>hiperwalk.quantum_walk.coined_walk &#8212; Hiperwalk 2.0a4 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/quantum_walk/coined_walk';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -114,7 +114,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      latest  <!-- this text may get changed later by javascript -->
+      stable  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -349,7 +349,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">scipy.sparse</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">from</span> <span class="nn">.quantum_walk</span> <span class="kn">import</span> <span class="n">QuantumWalk</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 <span class="kn">from</span> <span class="nn">.._constants</span> <span class="kn">import</span> <span class="n">__DEBUG__</span><span class="p">,</span> <span class="n">PYNEBLINA_IMPORT_ERROR_MSG</span>
 <span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">hadamard</span><span class="p">,</span> <span class="n">dft</span>
 <span class="k">try</span><span class="p">:</span>
@@ -377,10 +376,12 @@ document.write(`
 <span class="sd">        It can be the graph itself (:class:`hiperwalk.graph.Graph`) or</span>
 <span class="sd">        its adjacency matrix (:class:`scipy.sparse.csr_array`).</span>
 
-<span class="sd">    adjacency : :class:`scipy.sparse.csr_array`</span>
-<span class="sd">        .. deprecated ::</span>
+<span class="sd">    adjacency : :class:`scipy.sparse.csr_array`, optional</span>
+<span class="sd">        .. deprecated:: 2.0a1</span>
+<span class="sd">            It will be removed in version 2.0.</span>
 <span class="sd">            Use ``graph`` instead.</span>
 
+<span class="sd">        Use ``graph`` instead.</span>
 <span class="sd">        Adjacency matrix of the graph.</span>
 
 <span class="sd">    **kwargs : optional</span>
@@ -403,112 +404,15 @@ document.write(`
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    The recommended parameter type is</span>
-<span class="sd">    :class:`scipy.sparse.csr_array` using ``dtype=np.int8``</span>
-<span class="sd">    with 1 denoting adjacency and 0 denoting non-adjacency.</span>
-<span class="sd">    If any entry is different from 0 or 1,</span>
-<span class="sd">    some methods may not work as expected.</span>
 
-<span class="sd">    For more information about the general general Coined Quantum Walk Model,</span>
+<span class="sd">    The Hilbert space of the general Coined Quantum Walk model is</span>
+<span class="sd">    :math:`\mathcal{H}^{2|E|}`.</span>
+<span class="sd">    The computational basis is given by the graph arcs.</span>
+<span class="sd">    Refer to each graph for more information about the arcs order.</span>
+
+<span class="sd">    For more information about the general Coined Quantum Walk Model,</span>
 <span class="sd">    check Quantum Walks and Search Algorithms&#39;s</span>
 <span class="sd">    Section 7.2: Coined Walks on Arbitrary Graphs [1]_.</span>
-
-<span class="sd">    The Graph class uses the arc notation</span>
-<span class="sd">    and the Hilbert space :math:`\mathcal{H}^{2|E|}` for general Graphs.</span>
-<span class="sd">    That is, for a given graph :math:`G(V, E)`,</span>
-<span class="sd">    the walk occurs in the graph :math:`\vec{G}(V, A)`</span>
-<span class="sd">    where</span>
-
-<span class="sd">    .. math::</span>
-<span class="sd">        \begin{align*}</span>
-<span class="sd">            A = \bigcup_{(v,u) \in E} \{(v, u), (u, v)\}.</span>
-<span class="sd">        \end{align*}</span>
-
-<span class="sd">    Matrices and states respect the sorted arcs order,</span>
-<span class="sd">    i.e. :math:`(v, u) &lt; (v&#39;, u&#39;)` if either :math:`v &lt; v&#39;` or</span>
-<span class="sd">    :math:`v = v&#39;` and :math:`u &lt; u&#39;`</span>
-<span class="sd">    where :math:`(v, u), (v&#39;, u&#39;)` are valid arcs.</span>
-
-<span class="sd">    For example, the graph :math:`G(V, E)` shown in</span>
-<span class="sd">    Figure 1 has adjacency matrix ``adj_matrix``.</span>
-
-<span class="sd">    .. testsetup::</span>
-
-<span class="sd">        import numpy as np</span>
-
-<span class="sd">    &gt;&gt;&gt; adj_matrix = np.array([</span>
-<span class="sd">    ...     [0, 1, 0, 0],</span>
-<span class="sd">    ...     [1, 0, 1, 1],</span>
-<span class="sd">    ...     [0, 1, 0, 1],</span>
-<span class="sd">    ...     [0, 1, 1, 0]])</span>
-<span class="sd">    &gt;&gt;&gt; adj_matrix</span>
-<span class="sd">    array([[0, 1, 0, 0],</span>
-<span class="sd">           [1, 0, 1, 1],</span>
-<span class="sd">           [0, 1, 0, 1],</span>
-<span class="sd">           [0, 1, 1, 0]])</span>
-
-<span class="sd">    .. graphviz:: ../../graphviz/coined-model-sample.dot</span>
-<span class="sd">        :align: center</span>
-<span class="sd">        :layout: neato</span>
-<span class="sd">        :caption: Figure 1</span>
-
-<span class="sd">    The corresponding arcs are</span>
-
-<span class="sd">    &gt;&gt;&gt; arcs = [(i, j) for i in range(4)</span>
-<span class="sd">    ...                for j in range(4) if adj_matrix[i,j] == 1]</span>
-<span class="sd">    &gt;&gt;&gt; arcs</span>
-<span class="sd">    [(0, 1), (1, 0), (1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)]</span>
-
-<span class="sd">    Note that ``arcs`` is already sorted, hence the labels are</span>
-
-<span class="sd">    &gt;&gt;&gt; arcs_labels = {arcs[i]: i for i in range(len(arcs))}</span>
-<span class="sd">    &gt;&gt;&gt; arcs_labels</span>
-<span class="sd">    {(0, 1): 0, (1, 0): 1, (1, 2): 2, (1, 3): 3, (2, 1): 4, (2, 3): 5, (3, 1): 6, (3, 2): 7}</span>
-
-<span class="sd">    The arcs labels are illustrated in Figure 2.</span>
-
-<span class="sd">    .. graphviz:: ../../graphviz/coined-model-edges-labels.dot</span>
-<span class="sd">        :align: center</span>
-<span class="sd">        :layout: neato</span>
-<span class="sd">        :caption: Figure 2</span>
-
-<span class="sd">    If we would write the arcs labels respecting the the adjacency matrix format,</span>
-<span class="sd">    we would have the matrix ``adj_labels``.</span>
-<span class="sd">    Intuitively, the arcs are labeled in left-to-right top-to-bottom fashion.</span>
-
-<span class="sd">    &gt;&gt;&gt; adj_labels = [[arcs_labels[(i,j)] if (i,j) in arcs_labels</span>
-<span class="sd">    ...                                   else &#39;&#39; for j in range(4)]</span>
-<span class="sd">    ...               for i in range(4)]</span>
-<span class="sd">    &gt;&gt;&gt; adj_labels = np.matrix(adj_labels)</span>
-<span class="sd">    &gt;&gt;&gt; adj_labels</span>
-<span class="sd">    matrix([[&#39;&#39;, &#39;0&#39;, &#39;&#39;, &#39;&#39;],</span>
-<span class="sd">            [&#39;1&#39;, &#39;&#39;, &#39;2&#39;, &#39;3&#39;],</span>
-<span class="sd">            [&#39;&#39;, &#39;4&#39;, &#39;&#39;, &#39;5&#39;],</span>
-<span class="sd">            [&#39;&#39;, &#39;6&#39;, &#39;7&#39;, &#39;&#39;]], dtype=&#39;&lt;U21&#39;)</span>
-
-<span class="sd">    For consistency, any state :math:`\ket\psi \in \mathcal{H}^{2|E|}`</span>
-<span class="sd">    is such that :math:`\ket\psi = \sum_{i = 0}^{2|E| - 1} \psi_i \ket{i}`</span>
-<span class="sd">    where :math:`\ket{i}` is the computational basis state</span>
-<span class="sd">    associated to the :math:`i`-th arc.</span>
-<span class="sd">    In our example, the state</span>
-
-<span class="sd">    &gt;&gt;&gt; psi = np.array([1/np.sqrt(2), 0, 1j/np.sqrt(2), 0, 0, 0, 0, 0])</span>
-<span class="sd">    &gt;&gt;&gt; psi</span>
-<span class="sd">    array([0.70710678+0.j        , 0.        +0.j        ,</span>
-<span class="sd">           0.        +0.70710678j, 0.        +0.j        ,</span>
-<span class="sd">           0.        +0.j        , 0.        +0.j        ,</span>
-<span class="sd">           0.        +0.j        , 0.        +0.j        ])</span>
-
-<span class="sd">    corresponds to the walker being at vertex 0</span>
-<span class="sd">    and the coin pointing to vertex 1 with</span>
-<span class="sd">    associated amplitude of :math:`\frac{1}{\sqrt 2}`, and</span>
-<span class="sd">    to the walker being at vertex 1</span>
-<span class="sd">    and the coin pointing to vertex 2 with</span>
-<span class="sd">    associated amplitude of :math:`\frac{\text{i}}{\sqrt 2}`.</span>
-
-<span class="sd">    .. todo::</span>
-<span class="sd">        * Add option: numpy dense matrix as parameters.</span>
-<span class="sd">        * Add option: networkx graph as parameter.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -576,9 +480,6 @@ document.write(`
 <span class="sd">        it is unset for coherence.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
-            <span class="n">start_time</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span>
-
         <span class="n">num_vert</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()</span>
         <span class="n">num_arcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">number_of_arcs</span><span class="p">()</span>
 
@@ -593,9 +494,6 @@ document.write(`
               <span class="n">S_cols</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_arcs</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">),</span>
             <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_arcs</span><span class="p">,</span> <span class="n">num_arcs</span><span class="p">)</span>
         <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;flipflop_shift Time: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_shift</span> <span class="o">=</span> <span class="n">S</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span> <span class="o">=</span> <span class="kc">None</span>
@@ -621,9 +519,6 @@ document.write(`
 <span class="sd">        If an evolution operator was set previously,</span>
 <span class="sd">        it is unset for coherence.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
-            <span class="n">start_time</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span>
-
         <span class="n">num_arcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">number_of_arcs</span><span class="p">()</span>
 
         <span class="n">S_cols</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">previous_arc</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_arcs</span><span class="p">)]</span>
@@ -635,9 +530,6 @@ document.write(`
               <span class="n">S_cols</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_arcs</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">),</span>
             <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_arcs</span><span class="p">,</span> <span class="n">num_arcs</span><span class="p">)</span>
         <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;persistent shift Time: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_shift</span> <span class="o">=</span> <span class="n">S</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span> <span class="o">=</span> <span class="kc">None</span>
@@ -834,6 +726,10 @@ document.write(`
 <span class="sd">        each block is the :math:`\deg(v)`-dimensional ``coin``.</span>
 <span class="sd">        Consequently, there are :math:`|V|` blocks.</span>
 
+<span class="sd">        .. todo::</span>
+
+<span class="sd">            Check if explicit coin is valid.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coin</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
@@ -843,7 +739,6 @@ document.write(`
             <span class="k">if</span> <span class="ow">not</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">coin</span><span class="p">):</span>
                 <span class="n">coin</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_array</span><span class="p">(</span><span class="n">coin</span><span class="p">)</span>
 
-            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;TODO: Check if coin is valid&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_coin</span> <span class="o">=</span> <span class="n">coin</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">return</span>
@@ -1192,6 +1087,15 @@ document.write(`
 <span class="sd">        the coin of each marked vertex is substituted as specified by</span>
 <span class="sd">        the last :meth:`set_marked` call.</span>
 
+<span class="sd">        .. todo::</span>
+<span class="sd">            * Sparse matrix multipliation is not supported yet.</span>
+<span class="sd">              Converting all matrices to dense.</span>
+<span class="sd">              Then converting back to sparse.</span>
+<span class="sd">              This uses unnecessary memory and computational time.</span>
+<span class="sd">            * Check if matrix is sparse in pynelibna interface</span>
+<span class="sd">            * Check if matrices are deleted from memory and GPU.</span>
+
+
 <span class="sd">        References</span>
 <span class="sd">        ----------</span>
 <span class="sd">        .. [1] Portugal, Renato. &quot;Quantum walks and search algorithms&quot;.</span>
@@ -1201,7 +1105,7 @@ document.write(`
 <span class="sd">        --------</span>
 
 <span class="sd">        .. todo::</span>
-<span class="sd">            valid examples to clear behaviour</span>
+<span class="sd">            Valid examples to clear behaviour.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># evolution operator was not changed.</span>
@@ -1210,7 +1114,6 @@ document.write(`
 
         <span class="n">U</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">hpc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pyneblina_imported</span><span class="p">():</span>
-            <span class="n">warn</span><span class="p">(</span><span class="n">PYNEBLINA_IMPORT_ERROR_MSG</span><span class="p">)</span>
             <span class="n">hpc</span> <span class="o">=</span> <span class="kc">False</span>
 
 
@@ -1219,24 +1122,15 @@ document.write(`
 
         <span class="k">if</span> <span class="n">hpc</span><span class="p">:</span>
 
-            <span class="n">warn</span><span class="p">(</span>
-                <span class="s2">&quot;Sparse matrix multipliation is not supported yet. &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;Converting all matrices to dense. &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;Then converting back to sparse. &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;This uses unnecessary memory and computational time.&quot;</span>
-            <span class="p">)</span>
             <span class="n">S</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
             <span class="n">C</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
 
-            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;CHECK IF MATRIX IS SPARSE IN PYNELIBNA INTERFACE&quot;</span><span class="p">)</span>
             <span class="n">nbl_S</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">send_matrix</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">S</span>
             <span class="n">nbl_C</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">send_matrix</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">C</span>
             <span class="n">nbl_C</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">multiply_matrices</span><span class="p">(</span><span class="n">nbl_S</span><span class="p">,</span> <span class="n">nbl_C</span><span class="p">)</span>
 
-            <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Check if matrices are deleted &quot;</span>
-                          <span class="o">+</span> <span class="s2">&quot;from memory and GPU.&quot;</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">nbl_S</span>
 
             <span class="n">U</span> <span class="o">=</span> <span class="n">nbl</span><span class="o">.</span><span class="n">retrieve_matrix</span><span class="p">(</span><span class="n">nbl_C</span><span class="p">)</span>
@@ -1307,9 +1201,6 @@ document.write(`
                           <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_vert</span><span class="p">)]</span>
                         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">))])</span>
 
-        <span class="k">if</span> <span class="n">__DEBUG__</span><span class="p">:</span>
-            <span class="n">end</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;probability_distribution: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
         <span class="c1"># TODO: benchmark (time and memory usage)</span>
         <span class="k">return</span> <span class="n">prob</span></div>
 

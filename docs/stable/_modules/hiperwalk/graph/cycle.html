@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.graph.cycle &#8212; Hiperwalk 2.0a0 documentation</title>
+    <title>hiperwalk.graph.cycle &#8212; Hiperwalk 2.0a4 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/graph/cycle';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -114,7 +114,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      latest  <!-- this text may get changed later by javascript -->
+      stable  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -360,28 +360,14 @@ document.write(`
 <span class="sd">    -----</span>
 <span class="sd">    The cycle may be interpreted as being embedded on the line</span>
 <span class="sd">    with cyclic boundary condition.</span>
+<span class="sd">    Then, we assign 0 the right direction and 1 with the left direction.</span>
+<span class="sd">    This changes the arc order.</span>
+<span class="sd">    Any arc with tail :math:`v`</span>
+<span class="sd">    has label :math:`2v` if pointing rightwards,</span>
+<span class="sd">    and label :math:`2v + 1` if pointing leftwards.</span>
+<span class="sd">    Figure 1 illustrates the arc labels of a 3 vertices cycle.</span>
 
-
-<span class="sd">    .. todo::</span>
-<span class="sd">        </span>
-<span class="sd">        update below</span>
-
-<span class="sd">    The edge order respects the default vertex-coin notation.</span>
-<span class="sd">    In other words, 0 corresponds to the coin pointing rightwards,</span>
-<span class="sd">    and 1 to the coin pointing leftwards.</span>
-<span class="sd">    Therefore, the arcs are sorted with respect to this order</span>
-<span class="sd">    (vertex has precedence over direction and</span>
-<span class="sd">    right has precedence over left):</span>
-
-<span class="sd">    .. math::</span>
-<span class="sd">        \begin{align*}</span>
-<span class="sd">            \ket{(v, c)} = \ket{2v + c}</span>
-<span class="sd">        \end{align*}</span>
-
-<span class="sd">    where :math:`v \in V` and :math:`c \in \{0, 1\}`.</span>
-<span class="sd">    Figure 1 illustrates the arcs of a 3 vertices cycle.</span>
-
-<span class="sd">    .. graphviz:: ../../graphviz/coined-cycle-edges-labels.dot</span>
+<span class="sd">    .. graphviz:: ../../graphviz/cycle-arcs.dot</span>
 <span class="sd">        :align: center</span>
 <span class="sd">        :layout: neato</span>
 <span class="sd">        :caption: Figure 1.</span>
@@ -406,54 +392,11 @@ document.write(`
 <div class="viewcode-block" id="Cycle.embeddable"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Cycle.embeddable.html#hiperwalk.Cycle.embeddable">[docs]</a>    <span class="k">def</span> <span class="nf">embeddable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Cycle.get_default_coin"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Cycle.get_default_coin.html#hiperwalk.Cycle.get_default_coin">[docs]</a>    <span class="k">def</span> <span class="nf">get_default_coin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cycle.default_coin"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Cycle.default_coin.html#hiperwalk.Cycle.default_coin">[docs]</a>    <span class="k">def</span> <span class="nf">default_coin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the default coin name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s1">&#39;hadamard&#39;</span></div>
-
-    <span class="c1"># def _state_vertex_dir(self, state, entries):</span>
-    <span class="c1">#     r&quot;&quot;&quot;</span>
-    <span class="c1">#     Overrides Coined model method so the directions respect</span>
-    <span class="c1">#     the default coin directions.</span>
-    <span class="c1">#     In other words:</span>
-    <span class="c1">#     0 pointing rightwards and 1 pointing leftwards.</span>
-    <span class="c1">#     &quot;&quot;&quot;</span>
-    <span class="c1">#     num_vert = self.adj_matrix.shape[0]</span>
-
-    <span class="c1">#     for amplitude, src, coin_dir in entries:</span>
-    <span class="c1">#         if coin_dir != 0 and coin_dir != 1:</span>
-    <span class="c1">#             raise ValueError(</span>
-    <span class="c1">#                 &quot;Invalid entry coin direction for vertex &quot; + str(src)</span>
-    <span class="c1">#                 + &quot;. Expected either 0 (rightwards) or 1 (leftwards),&quot;</span>
-    <span class="c1">#                 + &quot; but received &quot; + str(coin_dir) + &quot; instead.&quot;</span>
-    <span class="c1">#             )</span>
-
-    <span class="c1">#         arc = 2*src + coin_dir</span>
-    <span class="c1">#         # if src == 0 or src == num_vert - 1:</span>
-    <span class="c1">#         #     arc = 2*src + coin_dir </span>
-
-    <span class="c1">#         print(arc)</span>
-    <span class="c1">#         state[arc] = amplitude</span>
-
-    <span class="c1">#     return state</span>
-
-    <span class="c1"># def _state_arc_notation(self, state, entries):</span>
-    <span class="c1">#     num_vert = self.adj_matrix.shape[0]</span>
-
-    <span class="c1">#     for amplitude, src, dst in entries:</span>
-    <span class="c1">#         if (dst != (src - 1) % num_vert and</span>
-    <span class="c1">#             dst != (src + 1) % num_vert):</span>
-    <span class="c1">#             raise ValueError (</span>
-    <span class="c1">#                 &quot;Vertices &quot; + str(src) + &quot; and &quot; + str(dst)</span>
-    <span class="c1">#                 + &quot; are not adjacent.&quot;</span>
-    <span class="c1">#             )</span>
-    <span class="c1">#         </span>
-    <span class="c1">#         arc = (2*src if dst - src == 1 or src - dst == num_vert - 1</span>
-    <span class="c1">#                else 2*src + 1)</span>
-    <span class="c1">#         state[arc] = amplitude</span>
-
-    <span class="c1">#     return state</span>
 
 <div class="viewcode-block" id="Cycle.arc_label"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Cycle.arc_label.html#hiperwalk.Cycle.arc_label">[docs]</a>    <span class="k">def</span> <span class="nf">arc_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span>
         <span class="n">num_vert</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()</span>

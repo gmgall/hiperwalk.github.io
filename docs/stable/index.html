@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to Hiperwalk! &#8212; Hiperwalk 2.0a0 documentation</title>
+    <title>Welcome to Hiperwalk! &#8212; Hiperwalk 2.0a4 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -116,7 +116,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      latest  <!-- this text may get changed later by javascript -->
+      stable  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -322,7 +322,6 @@ document.write(`
                   
   <section id="welcome-to-hiperwalk">
 <h1>Welcome to Hiperwalk!<a class="headerlink" href="#welcome-to-hiperwalk" title="Permalink to this heading">#</a></h1>
-<p><strong>Testing docs building process against a tag</strong></p>
 <p><strong>Hiperwalk</strong> (High-performance Quantum Walk Simulator) is a freeware open-source program that
 allows the user to perform simulations of quantum walks on graphs using HPC.
 The user can use the parallel resources of the computer,
@@ -333,7 +332,8 @@ It is under development and employs C, Python, and OpenCL.</p>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="install/index.html">Install</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install/index.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install/index.html#hiperwalk">Hiperwalk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install/index.html#hpc-prerequisites">HPC Prerequisites</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="install/index.html#gpu-driver">GPU Driver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="install/index.html#nvidia-toolkit">NVIDIA Toolkit</a></li>
 </ul>
@@ -343,17 +343,20 @@ It is under development and employs C, Python, and OpenCL.</p>
 <li class="toctree-l3"><a class="reference internal" href="install/index.html#id2">pyneblina</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="install/index.html#hiperwalk">HiperWalk</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="install/index.html#stable">Stable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="install/index.html#latest">Latest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="install/index.html#testing">Testing</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#first-steps">First Steps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#customization">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#import-hiperwalk">Import Hiperwalk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#create-the-graph">Create the graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#create-the-quantum-walk-based-on-the-previous-graph">Create the quantum walk based on the previous graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#simulate-the-walk">Simulate the walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#exhibit-the-results">Exhibit the results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#next-steps">Next Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial/graphs.html">Graphs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial/quantum_walk_models.html">Quantum Walk Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial/plotting_customization.html">Plotting Customization</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="documentation/index.html">Documentation</a><ul>
@@ -374,6 +377,7 @@ It is under development and employs C, Python, and OpenCL.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development/index.html#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development/index.html#documentation">Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="development/index.html#install-requirements">Install Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="development/index.html#generate-documentation">Generate Documentation</a></li>

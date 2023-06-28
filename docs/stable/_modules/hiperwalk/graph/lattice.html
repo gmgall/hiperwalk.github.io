@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.graph.lattice &#8212; Hiperwalk 2.0a0 documentation</title>
+    <title>hiperwalk.graph.lattice &#8212; Hiperwalk 2.0a4 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/graph/lattice';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -114,7 +114,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      latest  <!-- this text may get changed later by javascript -->
+      stable  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -350,28 +350,159 @@ document.write(`
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <div class="viewcode-block" id="Lattice"><a class="viewcode-back" href="../../../documentation/generated/hiperwalk.Lattice.html#hiperwalk.Lattice">[docs]</a><span class="k">class</span> <span class="nc">Lattice</span><span class="p">(</span><span class="n">Graph</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Two-dimensionsal lattice.</span>
+
+<span class="sd">    The lattice may have boundary conditions or not.</span>
+<span class="sd">    Its adjacency may be either natural or diagonal.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dimensions : int or tuple of int</span>
+<span class="sd">        Lattice dimensions in ``(x_dim, y_dim)`` format.</span>
+<span class="sd">        If ``dimensions`` is an integer, creates a square lattice.</span>
+
+<span class="sd">    periodic : bool, default=True</span>
+<span class="sd">        Whether the lattice has boundary conditions or not.</span>
+
+<span class="sd">    diagonal : bool, default=False</span>
+<span class="sd">        If ``False`` the natural adjacency is used.</span>
+<span class="sd">        Otherwise, diagonal adjacency is used.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    For defining the arc order, we must first define the vertices order.</span>
+<span class="sd">    The vertices are sorted with respect to the Y-axis first,</span>
+<span class="sd">    and then with respect to the X-axis.</span>
+<span class="sd">    That is,</span>
+<span class="sd">    if :math:`(x_1, y_1)` and :math:`(x_2, y_2)` are two valid vertices,</span>
+<span class="sd">    we say that :math:`(x_1, y_1) &lt; (x_2, y_2)` if :math:`y_1 &lt; y_2` or</span>
+<span class="sd">    if :math:`y_1 = y_2` and :math:`x_1 &lt; x_2`.</span>
+
+<span class="sd">    Natural Lattice:</span>
+<span class="sd">        In the natural lattice,</span>
+<span class="sd">        we have four directions possible.</span>
+
+<span class="sd">        * 00 = 0: right;</span>
+<span class="sd">        * 01 = 1: left;</span>
+<span class="sd">        * 10 = 2: up;</span>
+<span class="sd">        * 11 = 3: down.</span>
+
+<span class="sd">        The most significant bit corresponds to the axis,</span>
+<span class="sd">        0 for the X-axis and 1 for the Y-axis.</span>
+<span class="sd">        The less significant bit indicates whether to</span>
+<span class="sd">        move forward (0) or backward (1) in the given axis.</span>
+
+<span class="sd">        The arcs order respect vertices order and these directions.</span>
+<span class="sd">        For example, let :math:`(x, y)` be a vertex where</span>
+<span class="sd">        :math:`(x \pm 1, y)` and :math:`(x, y \pm 1)`</span>
+<span class="sd">        are also valid vertices.</span>
+<span class="sd">        The directions give</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            ((x, y), (x + 1, y)) &amp;&lt; ((x, y), (x - 1, y)) \\</span>
+<span class="sd">                                 &amp;&lt; ((x, y), (x, y + 1)) \\</span>
+<span class="sd">                                 &amp;&lt; ((x, y), (x, y - 1)).</span>
+
+<span class="sd">        The directions are depicted in :ref:`fig-natural-dir`.</span>
+
+<span class="sd">        .. graphviz:: ../../graphviz/lattice/natural-directions.dot</span>
+<span class="sd">            :align: center</span>
+<span class="sd">            :layout: neato</span>
+<span class="sd">            :name: fig-natural-dir</span>
+<span class="sd">            :caption: Figure: Natural lattice directions.</span>
+
+<span class="sd">        For example, the arcs labels for</span>
+<span class="sd">        the periodic natural :math:`3 \times 3`-lattice are</span>
+<span class="sd">        illustrated in :ref:`fig-periodic-natural-lattice`.</span>
+
+<span class="sd">        .. graphviz:: ../../graphviz/lattice/periodic-natural.dot</span>
+<span class="sd">            :align: center</span>
+<span class="sd">            :layout: neato</span>
+<span class="sd">            :name: fig-periodic-natural-lattice</span>
+<span class="sd">            :caption: Figure: Periodic natural 3x3-lattice.</span>
+
+<span class="sd">        For the natural lattice with boundary condition,</span>
+<span class="sd">        the arcs labels follow the same order.</span>
+<span class="sd">        But the labels are shifted when a given arc does not exist.</span>
+<span class="sd">        See :ref:`fig-bounded-natural-Lattice`</span>
+
+<span class="sd">        .. graphviz:: ../../graphviz/lattice/bounded-natural.dot</span>
+<span class="sd">            :align: center</span>
+<span class="sd">            :layout: neato</span>
+<span class="sd">            :name: fig-bounded-natural-lattice</span>
+<span class="sd">            :caption: Figure: Bounded natural 3x3-lattice.</span>
+
+<span class="sd">    Diagonal Lattice:</span>
+<span class="sd">        In the diagonal lattice,</span>
+<span class="sd">        we have four directions possible.</span>
+
+<span class="sd">        * 00 = 0: right, up;</span>
+<span class="sd">        * 01 = 1: right, down;</span>
+<span class="sd">        * 10 = 2: left, up;</span>
+<span class="sd">        * 11 = 3: left, down.</span>
+
+<span class="sd">        Each binary value describes whether to move</span>
+<span class="sd">        forward (0) or backward (1).</span>
+<span class="sd">        The most significant bit describes the X-axis movement and</span>
+<span class="sd">        the less significant bit describes the Y-axis movement.</span>
+
+<span class="sd">        The arcs order respect vertices order and these directions.</span>
+<span class="sd">        For example, let :math:`(x, y)` be a vertex where</span>
+<span class="sd">        :math:`(x \pm 1, y \pm 1)` are also valid vertices.</span>
+<span class="sd">        The directions give</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            ((x, y), (x + 1, y + 1)) &amp;&lt; ((x, y), (x + 1, y - 1)) \\</span>
+<span class="sd">                                     &amp;&lt; ((x, y), (x - 1, y + 1)) \\</span>
+<span class="sd">                                     &amp;&lt; ((x, y), (x - 1, y - 1)).</span>
+
+<span class="sd">        The directions are depicted in :ref:`fig-diagonal-dir`.</span>
+
+<span class="sd">        .. graphviz:: ../../graphviz/lattice/diagonal-directions.dot</span>
+<span class="sd">            :align: center</span>
+<span class="sd">            :layout: neato</span>
+<span class="sd">            :name: fig-diagonal-dir</span>
+<span class="sd">            :caption: Figure: Diagonal lattice directions.</span>
+
+<span class="sd">        For example, the arcs labels for</span>
+<span class="sd">        the periodic diagonal :math:`3 \times 3`-lattice are</span>
+<span class="sd">        illustrated in :ref:`fig-periodic-diagonal-lattice`</span>
+
+<span class="sd">        .. graphviz:: ../../graphviz/lattice/periodic-diagonal.dot</span>
+<span class="sd">            :align: center</span>
+<span class="sd">            :layout: neato</span>
+<span class="sd">            :name: fig-periodic-diagonal-lattice</span>
+<span class="sd">            :caption: Figure: Periodic diagonal 3x3-lattice.</span>
+
+<span class="sd">        For the diagonal lattice with boundary condition,</span>
+<span class="sd">        the arcs labels follow the same order.</span>
+<span class="sd">        But the labels are shifted when a given arc does not exist.</span>
+<span class="sd">        See :ref:`fig-bounded-diagonal-Lattice`</span>
+
+<span class="sd">        .. graphviz:: ../../graphviz/lattice/bounded-diagonal.dot</span>
+<span class="sd">            :align: center</span>
+<span class="sd">            :layout: neato</span>
+<span class="sd">            :name: fig-bounded-diagonal-lattice</span>
+<span class="sd">            :caption: Figure: Bounded diagonal 3x3-lattice.</span>
+
+<span class="sd">        Note that in this case, there are two independent sublattices.</span>
+<span class="sd">        That is, a vertex in one sublattice is not reacheable from</span>
+<span class="sd">        a vertex in the other sublattice.</span>
+<span class="sd">        This also occurs if the diagonal lattice is periodic and</span>
+<span class="sd">        both dimensions are even.</span>
+<span class="sd">        See :ref:`fig-even-dim-diagonal`</span>
+
+<span class="sd">        .. graphviz:: ../../graphviz/lattice/even-dim-diagonal.dot</span>
+<span class="sd">            :align: center</span>
+<span class="sd">            :layout: neato</span>
+<span class="sd">            :name: fig-even-dim-diagonal</span>
+<span class="sd">            :caption: Figure: Periodic diagonal 4x4-lattice.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            If the diagonal lattice </span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="Lattice.__init__"><a class="viewcode-back" href="../../../documentation/generated/hiperwalk.Lattice.html#hiperwalk.Lattice.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">,</span> <span class="n">periodic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">diagonal</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Two-dimensionsal lattice.</span>
-
-<span class="sd">        The lattice may have boundary conditions or not.</span>
-<span class="sd">        Its adjacency may be either natural or diagonal.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        dimensions : int or tuple of int</span>
-<span class="sd">            Lattice dimensions in ``(x_dim, y_dim)`` format.</span>
-<span class="sd">            If ``dimensions`` is an integer, creates a square lattice.</span>
-
-
-<span class="sd">        periodic : bool, default=True</span>
-<span class="sd">            Whether the lattice has boundary conditions or not.</span>
-
-<span class="sd">        diagonal : bool, default=False</span>
-<span class="sd">            If ``False`` the natural adjacency is used.</span>
-<span class="sd">            Otherwise, diagonal adjacency is used.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">try</span><span class="p">:</span>
             <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span> <span class="o">=</span> <span class="n">dimensions</span>
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
@@ -446,14 +577,81 @@ document.write(`
         <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="Lattice.vertex_coordinates"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Lattice.vertex_coordinates.html#hiperwalk.Lattice.vertex_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">vertex_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns vertex (x, y)-coordinates given its label.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        label : int</span>
+<span class="sd">            Vertex label.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        x : int</span>
+<span class="sd">            Vertex X-coordinate.</span>
+<span class="sd">        y : int</span>
+<span class="sd">            Vertex Y-coordinate.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        vertex_label</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">label</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">label</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Lattice.vertex_label"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Lattice.vertex_label.html#hiperwalk.Lattice.vertex_label">[docs]</a>    <span class="k">def</span> <span class="nf">vertex_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns vertex label (number) given its coordinates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : int</span>
+<span class="sd">            Vertex X-coordinate.</span>
+<span class="sd">        y : int</span>
+<span class="sd">            Vertex Y-coordinate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Vertex label.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        vertex_coordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Lattice.arc_direction"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Lattice.arc_direction.html#hiperwalk.Lattice.arc_direction">[docs]</a>    <span class="k">def</span> <span class="nf">arc_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arc</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return arc direction.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        arc</span>
+<span class="sd">            Any of the following notations are acceptable.</span>
+<span class="sd">            </span>
+<span class="sd">            * ((int, int), (int, int))</span>
+<span class="sd">                Arc notation with vertices&#39; coordinates.</span>
+<span class="sd">            * (int, int)</span>
+<span class="sd">                Arc notation with vertices&#39; labels.</span>
+<span class="sd">            * int</span>
+<span class="sd">                Arc label.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            If natural (not diagonal) lattice:</span>
+<span class="sd">                * 0: right</span>
+<span class="sd">                * 1: left</span>
+<span class="sd">                * 2: up</span>
+<span class="sd">                * 3: down</span>
+
+<span class="sd">            If diagonal lattice:</span>
+<span class="sd">                * 0: right, up</span>
+<span class="sd">                * 1: right, down</span>
+<span class="sd">                * 2: left, up</span>
+<span class="sd">                * 3: left, down</span>
+
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        Does not check if arc exists.</span>
@@ -515,6 +713,29 @@ document.write(`
         <span class="k">return</span> <span class="n">label</span> <span class="o">+</span> <span class="n">direction</span> <span class="o">-</span> <span class="n">sub_x</span> <span class="o">-</span> <span class="n">sub_y</span></div>
 
 <div class="viewcode-block" id="Lattice.arc"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Lattice.arc.html#hiperwalk.Lattice.arc">[docs]</a>    <span class="k">def</span> <span class="nf">arc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Arc in arc notation.</span>
+
+<span class="sd">        Given the arc label, returns it in the ``(tail, head)`` notation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        label : int</span>
+<span class="sd">            Arc label (number)</span>
+<span class="sd">        coordinates : bool, default=True</span>
+<span class="sd">            Whether the vertices are returned as coordinates or as labels.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        (tail, head)</span>
+<span class="sd">            There are two possibile formats for the vertices</span>
+<span class="sd">            ``tail`` and ``head``.</span>
+
+<span class="sd">            (vertex_x, vertex_y) : (int, int)</span>
+<span class="sd">                If ``coordinates=True``.</span>
+<span class="sd">            label : int</span>
+<span class="sd">                If ``coordinates=False``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">periodic</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagonal</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
@@ -686,19 +907,41 @@ document.write(`
         <span class="k">return</span> <span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">head</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Lattice.dimensions"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Lattice.dimensions.html#hiperwalk.Lattice.dimensions">[docs]</a>    <span class="k">def</span> <span class="nf">dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lattice dimensions.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        x_dim : int</span>
+<span class="sd">            Dimension alongside de X axis.</span>
+<span class="sd">        y_dim : int</span>
+<span class="sd">            Dimension alongside de Y axis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Lattice.get_central_vertex"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Lattice.get_central_vertex.html#hiperwalk.Lattice.get_central_vertex">[docs]</a>    <span class="k">def</span> <span class="nf">get_central_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Central vertex is different from center vertex.</span>
-<span class="sd">        In the sense that...</span>
+<span class="sd">        Vertex with label in the center of the graph as grid.</span>
+
+<span class="sd">        .. deprecated:: 2.0a1</span>
+<span class="sd">            ``get_central_vertex`` will be removed in Hiperwalk 2.0 because</span>
+<span class="sd">            the user can calculate the central vertex easily using</span>
+<span class="sd">            :meth:`dimensions`.</span>
+
+<span class="sd">        The central vertex is the vertex that would be located at the</span>
+<span class="sd">        grid center after mapping every vertex ``(x, y)`` to its</span>
+<span class="sd">        respetive grid point.</span>
+<span class="sd">        </span>
+<span class="sd">        This is not the center vertex.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If any lattice dimension is even.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;`get_central_vertex` is deprecated. &#39;</span>
-             <span class="o">+</span> <span class="s1">&#39;Use `central_vertex` instead.&#39;</span><span class="p">,</span>
-             <span class="ne">DeprecationWarning</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">central_vertex</span><span class="p">()</span></div>
+             <span class="o">+</span> <span class="s1">&#39;It will be removed in version 2.0.&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Lattice.central_vertex"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Lattice.central_vertex.html#hiperwalk.Lattice.central_vertex">[docs]</a>    <span class="k">def</span> <span class="nf">central_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;One of lattice dimensions is even. &quot;</span>
