@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.graph.line &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>hiperwalk.graph.line &#8212; Hiperwalk latest documentation</title>
   
   
   
@@ -39,8 +39,8 @@
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/graph/line';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.org/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -114,7 +114,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      stable  <!-- this text may get changed later by javascript -->
+      latest  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -351,48 +351,38 @@ document.write(`
 
 <div class="viewcode-block" id="Line"><a class="viewcode-back" href="../../../documentation/generated/hiperwalk.Line.html#hiperwalk.Line">[docs]</a><span class="k">class</span> <span class="nc">Line</span><span class="p">(</span><span class="n">Graph</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Finite Line Graph (Path Graph).</span>
+<span class="sd">    Finite line graph (path graph).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    num_vert : int</span>
-<span class="sd">        Number of vertices on the line.</span>
+<span class="sd">        The number of vertices on the line.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    On the Line,</span>
-<span class="sd">    we can assign directions to the arcs.</span>
-<span class="sd">    If an arc is pointing rightwards it has direction 0 --</span>
-<span class="sd">    i.e., (1, 2).</span>
-<span class="sd">    If an arc is pointing leftwards, it has direction 1 --</span>
-<span class="sd">    i.e., (2, 1).</span>
+<span class="sd">    In the :obj:`Line` class, directions can be assigned to the arcs. </span>
+<span class="sd">    An arc pointing to the right has direction 0 (e.g., (1, 2)), </span>
+<span class="sd">    and an arc pointing to the left has direction 1 (e.g., (2, 1)).</span>
 
-<span class="sd">    We use the arc directions to define the arcs order.</span>
-<span class="sd">    Hence, for a vertex :math:`v \in V`,</span>
-<span class="sd">    the arcs :math:`(v, v + 1)` and :math:`(v, v - 1)`</span>
-<span class="sd">    have labels :math:`a_0` and :math:`a_1` (respectively)</span>
-<span class="sd">    such that  :math:`a_0 &lt; a_1`.</span>
-<span class="sd">    This order is coherent with the Coined Quantum Walk on the line [1]_.</span>
-<span class="sd">    The only exceptions to this rule are the extreme vertices</span>
-<span class="sd">    0 and :math:`|V| - 1`.</span>
-<span class="sd">    Since they only have one arc.</span>
-<span class="sd">    Besides that,</span>
-<span class="sd">    for any two vertices :math:`v_1 &lt; v_2`,</span>
-<span class="sd">    any arc with tail :math:`v_1` has label smaller than</span>
-<span class="sd">    any arc with tail :math:`v_2`.</span>
+<span class="sd">    The order of the arcs is determined by their direction. </span>
+<span class="sd">    Thus, for a vertex :math:`v \in V`, </span>
+<span class="sd">    the arcs :math:`(v, v + 1)` and :math:`(v, v - 1)` </span>
+<span class="sd">    have labels :math:`a_0` and :math:`a_1` respectively, </span>
+<span class="sd">    with :math:`a_0 &lt; a_1`. </span>
+<span class="sd">    The only exceptions to this rule are the extreme vertices 0 </span>
+<span class="sd">    and :math:`|V| - 1`, as they have outdegree 1. </span>
 
-<span class="sd">    For example, the arc labels of the 4-vertices Line</span>
-<span class="sd">    are represented in Figure 1.</span>
+<span class="sd">    Apart from these exceptions, </span>
+<span class="sd">    for any two vertices :math:`v_1 &lt; v_2`, </span>
+<span class="sd">    any arc with tail :math:`v_1` will have a label smaller than the </span>
+<span class="sd">    label of any arc with tail :math:`v_2`.</span>
+
+<span class="sd">    For instance, Figure 1 illustrates the labels of the arcs of a path graph with 4 vertices.</span>
 <span class="sd">    </span>
 <span class="sd">    .. graphviz:: ../../graphviz/line-arcs.dot</span>
 <span class="sd">        :align: center</span>
 <span class="sd">        :layout: neato</span>
 <span class="sd">        :caption: Figure 1.</span>
-
-<span class="sd">    References</span>
-<span class="sd">    ----------</span>
-<span class="sd">    .. [1] Portugal, Renato. &quot;Quantum walks and search algorithms&quot;.</span>
-<span class="sd">        Vol. 19. New York: Springer, 2013.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Line.__init__"><a class="viewcode-back" href="../../../documentation/generated/hiperwalk.Line.html#hiperwalk.Line.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_vert</span><span class="p">):</span>
@@ -418,7 +408,7 @@ document.write(`
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the default coin name.</span>
 
-<span class="sd">        The default coin for the coined quantum walk on the</span>
+<span class="sd">        The default coin for a coined quantum walk on a</span>
 <span class="sd">        segment is ``&#39;hadamard&#39;``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s1">&#39;hadamard&#39;</span></div>
@@ -430,7 +420,7 @@ document.write(`
 
         <span class="n">num_vert</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()</span>
         <span class="k">return</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">tail</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="p">(</span><span class="n">diff</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">tail</span> <span class="o">!=</span> <span class="mi">0</span>
-                               <span class="ow">or</span> <span class="n">head</span> <span class="o">==</span> <span class="n">num_vert</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                               <span class="ow">or</span> <span class="n">tail</span> <span class="o">==</span> <span class="n">num_vert</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="k">else</span> <span class="n">tail</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Line.arc"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.Line.arc.html#hiperwalk.Line.arc">[docs]</a>    <span class="k">def</span> <span class="nf">arc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
@@ -458,7 +448,7 @@ document.write(`
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">arc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="mi">1</span>
-            <span class="n">num_arcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_arcs</span><span class="p">()</span> 
+            <span class="n">num_arcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_arcs</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">arc</span> <span class="o">==</span> <span class="n">num_arcs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">num_arcs</span> <span class="o">-</span> <span class="mi">2</span>
             <span class="k">return</span> <span class="n">arc</span> <span class="o">+</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">arc</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">arc</span> <span class="o">-</span> <span class="mi">2</span></div>

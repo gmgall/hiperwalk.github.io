@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.plot._plot &#8212; Hiperwalk 2.0a0 documentation</title>
+    <title>hiperwalk.plot._plot &#8212; Hiperwalk stable documentation</title>
   
   
   
@@ -39,8 +39,8 @@
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/plot/_plot';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.org/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -114,7 +114,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      latest  <!-- this text may get changed later by javascript -->
+      stable  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -360,7 +360,6 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 
 
-<span class="c1"># TODO: add documentation for &#39;fixed_probabilities&#39; kwarg</span>
 <span class="c1"># TODO: add option for changing figsize and dpi</span>
 <span class="c1"># histogram is alias for bar width=1</span>
 <div class="viewcode-block" id="plot_probability_distribution"><a class="viewcode-back" href="../../../documentation/generated/hiperwalk.plot_probability_distribution.html#hiperwalk.plot_probability_distribution">[docs]</a><span class="k">def</span> <span class="nf">plot_probability_distribution</span><span class="p">(</span>
@@ -383,13 +382,9 @@ document.write(`
 <span class="sd">    plot : str, default=None</span>
 <span class="sd">        The plot type.</span>
 <span class="sd">        The valid options are</span>
-<span class="sd">        ``{&#39;bar&#39;, &#39;line&#39;, &#39;graph&#39;, &#39;histogram&#39;, &#39;grid&#39;}``.</span>
+<span class="sd">        ``{&#39;bar&#39;, &#39;line&#39;, &#39;graph&#39;, &#39;histogram&#39;, &#39;plane&#39;}``.</span>
 <span class="sd">        If ``None``, uses default plotting. Usually ``bar``,</span>
 <span class="sd">        but default plotting changes according to ``graph``.</span>
-<span class="sd">    animate : bool, default=False</span>
-<span class="sd">        Whether or not to animate multiple plots.</span>
-<span class="sd">        If ``False``, each quantum walk step generates an image.</span>
-<span class="sd">        If ``True``, each quantum walk step is used as an animation frame.</span>
 <span class="sd">    show : bool, default=True</span>
 <span class="sd">        Whether or not to show plots or animation.</span>
 <span class="sd">        With ``show=True`` we have:</span>
@@ -412,8 +407,6 @@ document.write(`
 <span class="sd">        the j-step is saved in the ``filename-j.png`` file;</span>
 <span class="sd">        if ``animate==True``,</span>
 <span class="sd">        the entire walk is saved in the ``filename.fig`` file.</span>
-<span class="sd">    interval : int, default=250</span>
-<span class="sd">        Time in milliseconds that each frame is shown if ``animate==True``.</span>
 <span class="sd">    graph : optional</span>
 <span class="sd">        The structure of the graph on which the walk occurs.</span>
 <span class="sd">        The graph labels are used as plotting labels.</span>
@@ -429,6 +422,25 @@ document.write(`
 <span class="sd">            NetworkX Graph</span>
 <span class="sd">        * :class:`scipy.sparse.csr_matrix`</span>
 <span class="sd">            Adjacency matrix.</span>
+<span class="sd">    rescale : bool, optional</span>
+<span class="sd">        If ``False`` or omitted, the reference maximum probability</span>
+<span class="sd">        is the global one.</span>
+<span class="sd">        If ``True``, the reference maximum probability depends on</span>
+<span class="sd">        the current step, changing every image or frame.</span>
+<span class="sd">        For example, if the global maximum probability is 1,</span>
+<span class="sd">        ``min_node_size, max_node_size = (300, 3000)``,</span>
+<span class="sd">        and the maximum probability of a given step is 0.5;</span>
+<span class="sd">        then for ``rescale=False``,</span>
+<span class="sd">        the step maximum node size shown is 1650</span>
+<span class="sd">        (halfway betweeen 300 and 3000),</span>
+<span class="sd">        while for ``rescale=True``,</span>
+<span class="sd">        the step maximum node size shown is 3000.</span>
+<span class="sd">    animate : bool, default=False</span>
+<span class="sd">        Whether or not to animate multiple plots.</span>
+<span class="sd">        If ``False``, each quantum walk step generates an image.</span>
+<span class="sd">        If ``True``, each quantum walk step is used as an animation frame.</span>
+<span class="sd">    interval : int, default=250</span>
+<span class="sd">        Time in milliseconds that each frame is shown if ``animate==True``.</span>
 <span class="sd">    **kwargs : dict, optional</span>
 <span class="sd">        Extra arguments to further customize plotting.</span>
 <span class="sd">        Valid arguments depend on ``plot``.</span>
@@ -436,19 +448,6 @@ document.write(`
 
 <span class="sd">    Other Parameters</span>
 <span class="sd">    ----------------</span>
-<span class="sd">    fixed_probabilities : bool, optional</span>
-<span class="sd">        If ``True`` or omitted, the reference maximum probability</span>
-<span class="sd">        is the global one.</span>
-<span class="sd">        If ``False``, the reference maximum probability depends on</span>
-<span class="sd">        the current step, changing every image or frame.</span>
-<span class="sd">        For example, if the global maximum probability is 1,</span>
-<span class="sd">        ``min_node_size, max_node_size = (300, 3000)``,</span>
-<span class="sd">        and the maximum probability of a given step is 0.5;</span>
-<span class="sd">        then for ``fixed_probabilities=True``,</span>
-<span class="sd">        the step maximum node size shown is halfway betweeen 300 and 3000,</span>
-<span class="sd">        while for ``fixed_probabilities=False``,</span>
-<span class="sd">        the step maximum node size shown is 3000.</span>
-
 <span class="sd">    Bar Plots</span>
 <span class="sd">        See :obj:`matplotlib.pyplot.bar` for more optional keywords.</span>
 
@@ -474,7 +473,8 @@ document.write(`
 <span class="sd">            A colormap for representing vertices probabilities.</span>
 <span class="sd">            if ``cmap=&#39;default&#39;``, uses the ``&#39;viridis&#39;`` colormap.</span>
 <span class="sd">            For more colormap options, check</span>
-<span class="sd">            `Matplolib&#39;s Colormap reference &lt;https://matplotlib.org/stable/gallery/color/colormap_reference.html&gt;`_.</span>
+<span class="sd">            `Matplolib&#39;s Colormap reference</span>
+<span class="sd">            &lt;https://matplotlib.org/stable/gallery/color/colormap_reference.html&gt;`_.</span>
 
 <span class="sd">    Histogram Plots</span>
 <span class="sd">        See :obj:`matplotlib.pyplot.bar` for more optional keywords.</span>
@@ -483,9 +483,9 @@ document.write(`
 <span class="sd">    Line Plots</span>
 <span class="sd">        See :obj:`matplotlib.pyplot.plot` for more optional keywords.</span>
 
-<span class="sd">    Grid Plots</span>
+<span class="sd">    Plane Plots</span>
 <span class="sd">        dimensions: 2-tuple of int</span>
-<span class="sd">            grid dimensions in ``(x_dim, y_dim)`` format.</span>
+<span class="sd">            plane dimensions in ``(x_dim, y_dim)`` format.</span>
 
 
 <span class="sd">    Raises</span>
@@ -544,15 +544,13 @@ document.write(`
     <span class="c1"># passes kwargs by reference to be updated accordingly</span>
 
     <span class="k">if</span> <span class="s1">&#39;graph&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">plot</span> <span class="o">=</span> <span class="n">_default_graph_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">_default_graph_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">plot</span> <span class="o">=</span> <span class="n">_default_graph_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">plot</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">plot</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>
 
     <span class="n">plot</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-    <span class="n">valid_plots</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="s1">&#39;histogram&#39;</span><span class="p">,</span> <span class="s1">&#39;grid&#39;</span><span class="p">]</span>
+    <span class="n">valid_plots</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="s1">&#39;histogram&#39;</span><span class="p">,</span> <span class="s1">&#39;plane&#39;</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">plot</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_plots</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -573,14 +571,14 @@ document.write(`
             <span class="n">valid_plots</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">_configure_plot_figure</span><span class="p">,</span>
             <span class="n">valid_plots</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">_configure_graph_figure</span><span class="p">,</span>
             <span class="n">valid_plots</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">_configure_plot_figure</span><span class="p">,</span>
-            <span class="n">valid_plots</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">_configure_grid_figure</span><span class="p">}</span>
+            <span class="n">valid_plots</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">_configure_plane_figure</span><span class="p">}</span>
     <span class="c1"># plot functions: code for plotting the graph accordingly</span>
     <span class="n">plot_funcs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">valid_plots</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">_plot_probability_distribution_on_bars</span><span class="p">,</span>
         <span class="n">valid_plots</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">_plot_probability_distribution_on_line</span><span class="p">,</span>
         <span class="n">valid_plots</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">_plot_probability_distribution_on_graph</span><span class="p">,</span>
         <span class="n">valid_plots</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">_plot_probability_distribution_on_histogram</span><span class="p">,</span>
-        <span class="n">valid_plots</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">_plot_probability_distribution_on_grid</span>
+        <span class="n">valid_plots</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">_plot_probability_distribution_on_plane</span>
     <span class="p">}</span>
 
     <span class="c1"># preparing probabilities to shape requested by called functions</span>
@@ -627,8 +625,10 @@ document.write(`
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
             <span class="n">anim</span><span class="o">.</span><span class="n">show_animation</span><span class="p">()</span></div>
 
-<span class="k">def</span> <span class="nf">_default_graph_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;cmap&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_default_graph_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">plot</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">plot</span> <span class="o">==</span> <span class="s1">&#39;graph&#39;</span> <span class="ow">or</span> <span class="n">plot</span> <span class="o">==</span> <span class="s1">&#39;plane&#39;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="ow">not</span> <span class="s1">&#39;cmap&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span>
+    <span class="p">):</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
 
     <span class="k">if</span> <span class="s1">&#39;cmap&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -636,16 +636,36 @@ document.write(`
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span>
 
     <span class="n">graph</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">Graph</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="c1"># hiperwalk graph</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">Lattice</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s1">&#39;dimensions&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">plot</span> <span class="o">=</span> <span class="s1">&#39;plane&#39;</span>
+        <span class="k">if</span> <span class="n">plot</span> <span class="o">==</span> <span class="s1">&#39;plane&#39;</span> <span class="ow">and</span> <span class="s1">&#39;dimensions&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dimensions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">dimensions</span><span class="p">()</span>
-        <span class="k">return</span> <span class="s1">&#39;grid&#39;</span>
+        <span class="k">return</span> <span class="n">plot</span>
 
-    <span class="k">return</span> <span class="s1">&#39;bar&#39;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">Hypercube</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">plot</span> <span class="o">=</span> <span class="s1">&#39;graph&#39;</span>
+
+            <span class="n">nx_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_scipy_sparse_array</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">adj_matrix</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nx_graph</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">nx_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;subset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">bit_count</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">nx_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;subset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bin</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">multipartite_layout</span><span class="p">(</span><span class="n">nx_graph</span><span class="p">)</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx_graph</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;edge_color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.002</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">dim</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="n">dim</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">2</span><span class="o">**</span><span class="n">dim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">}</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_node_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_node_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;edgecolors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="s1">&#39;graph&#39;</span> <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">plot</span>
 
 
 <span class="k">def</span> <span class="nf">_preconfigure_plot</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
@@ -664,8 +684,7 @@ document.write(`
 <span class="sd">        Reference of kwargs containing all extra keywords.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;fixed_probabilities&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span>
-            <span class="ow">or</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fixed_probabilities&#39;</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;rescale&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rescale&#39;</span><span class="p">)):</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probabilities</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
@@ -693,20 +712,19 @@ document.write(`
 <span class="sd">    _configure_nodes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># vmin and vmax are default keywords used by networkx_draw.</span>
-    <span class="c1"># if an invalid keyword is passed to nx.draw(), it does not execute</span>
-    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;fixed_probabilities&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span>
-            <span class="ow">or</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;fixed_probabilities&#39;</span><span class="p">]):</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#min_prob</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probabilities</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="c1">#max_prob</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;rescale&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;rescale&#39;</span><span class="p">]):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#min_prob</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probabilities</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="c1">#max_prob</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;rescale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">if</span> <span class="s1">&#39;graph&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;&#39;graph&#39; kwarg not provided.&quot;</span><span class="p">)</span>
-        <span class="n">graph</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_array</span><span class="p">):</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_scipy_sparse_array</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">Graph</span><span class="p">):</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_scipy_sparse_array</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">adj_matrix</span><span class="p">)</span>
+
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_array</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_scipy_sparse_array</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">Graph</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_scipy_sparse_array</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">adj_matrix</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="s1">&#39;adj_matrix&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="c1"># Pops adj_matrix if both graph and adj_matrix keywords are set;</span>
@@ -777,7 +795,7 @@ document.write(`
                             <span class="n">fig_height</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">_configure_figure</span><span class="p">(</span><span class="n">num_vert</span><span class="p">,</span> <span class="n">fig_width</span><span class="p">,</span> <span class="n">fig_height</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_configure_grid_figure</span><span class="p">(</span><span class="n">num_vert</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">_configure_plane_figure</span><span class="p">(</span><span class="n">num_vert</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                            <span class="n">fig_height</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">fig_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fig_width</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -790,8 +808,8 @@ document.write(`
                            <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Vertex X ID&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Vertex Y ID&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Vertex X&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Vertex Y&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
 
@@ -929,7 +947,7 @@ document.write(`
             <span class="n">ind</span> <span class="o">=</span> <span class="n">loc</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
             <span class="n">ind</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ind</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_vert</span><span class="p">]</span>
 
-            <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+            <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()))</span>
 
             <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="p">[</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ind</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
@@ -962,11 +980,15 @@ document.write(`
     <span class="n">_update_nodes</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;min_node_size&#39;</span><span class="p">),</span>
                   <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;max_node_size&#39;</span><span class="p">),</span> <span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="n">vmin</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;min_prob&#39;</span><span class="p">)</span>
+    <span class="n">vmax</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;max_prob&#39;</span><span class="p">)</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;graph&#39;</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
             <span class="n">node_size</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;node_size&#39;</span><span class="p">),</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="c1"># Note: nx.draw_networkx_labels dramatically increases plotting time.</span>
     <span class="c1"># It is called by nx.draw</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vmin</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vmax</span>
 
     <span class="c1"># setting and drawing colorbar</span>
     <span class="k">if</span> <span class="s1">&#39;cmap&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -1057,16 +1079,15 @@ document.write(`
             <span class="n">max_node_size</span> <span class="o">=</span> <span class="mi">3000</span>
 
     <span class="k">if</span> <span class="n">min_node_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_node_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;fixed_probabilities&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span>
-                <span class="ow">and</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fixed_probabilities&#39;</span><span class="p">)):</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probabilities</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;rescale&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rescale&#39;</span><span class="p">)):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probabilities</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
         <span class="c1"># calculating size of each node acording to probability </span>
         <span class="c1"># as a function f(x) = ax + b where b = min_size and</span>
         <span class="c1"># max_size = a*(max_prob-min_prob) + min_size</span>
         <span class="n">a</span> <span class="o">=</span> <span class="p">((</span><span class="n">max_node_size</span> <span class="o">-</span> <span class="n">min_node_size</span><span class="p">)</span>
-             <span class="o">/</span> <span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">]))</span>
+             <span class="o">/</span> <span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_prob&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_prob&#39;</span><span class="p">]))</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;node_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">min_node_size</span><span class="p">,</span> <span class="n">probabilities</span>
         <span class="p">))</span>
@@ -1081,36 +1102,54 @@ document.write(`
 <span class="sd">    ax : :class:`matplotlib.axes.Axes`</span>
 <span class="sd">        Ax on which the plot was drawn.</span>
 <span class="sd">    kwargs : dict</span>
-<span class="sd">        Dictionary containing the keys &#39;cmap&#39;, &#39;vmin&#39; and &#39;vmax&#39;.</span>
-<span class="sd">        &#39;vmin&#39; and &#39;vmax&#39; describe the inferior and superior limit for</span>
-<span class="sd">        colorbar values, respectively.</span>
+<span class="sd">        Dictionary containing the keys &#39;cmap&#39;, &#39;min_prob&#39; and &#39;max_prob&#39;.</span>
+<span class="sd">        &#39;min_prob&#39; and &#39;max_prob&#39; describe</span>
+<span class="sd">        the inferior and superior limit for colorbar values, respectively.</span>
 <span class="sd">        &#39;cmap&#39; describes a valid matplotlib colormap</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
 
     <span class="n">sm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span>
         <span class="n">cmap</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">],</span>
-        <span class="n">norm</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">],</span>
-                           <span class="n">vmax</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">])</span>
+        <span class="n">norm</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_prob&#39;</span><span class="p">],</span>
+                           <span class="n">vmax</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_prob&#39;</span><span class="p">])</span>
     <span class="p">)</span>
 
     <span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
     <span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;2.5%&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
     <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
         <span class="n">sm</span><span class="p">,</span>
-        <span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">],</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+        <span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;min_prob&#39;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_prob&#39;</span><span class="p">],</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
         <span class="n">cax</span><span class="o">=</span><span class="n">cax</span>
     <span class="p">)</span>
 
     <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
 
+<span class="k">def</span> <span class="nf">_default_plane_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;cmap&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
 
-<span class="k">def</span> <span class="nf">_plot_probability_distribution_on_grid</span><span class="p">(</span>
+    <span class="k">if</span> <span class="s1">&#39;cmap&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span>
+
+    <span class="k">if</span> <span class="s1">&#39;linewidth&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="s1">&#39;antialiased&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;antialiased&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="s1">&#39;cstride&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cstride&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="s1">&#39;rstride&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;rstride&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="s1">&#39;alpha&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="k">def</span> <span class="nf">_plot_probability_distribution_on_plane</span><span class="p">(</span>
         <span class="n">probabilities</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">min_prob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_prob</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plots probability distribution on the grid.</span>
+<span class="sd">    Plots probability distribution on the plane.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span> <span class="o">=</span> <span class="n">dimensions</span>
 
@@ -1119,13 +1158,25 @@ document.write(`
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
     <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">))</span>
 
-    <span class="c1">#mappable = plt.cm.ScalarMappable(cmap=plt.cm.viridis)</span>
-    <span class="n">mappable</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">])</span>
-    <span class="n">mappable</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
-    <span class="n">mappable</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="c1"># optional</span>
+    <span class="n">_default_plane_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mappable</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;cmap&#39;</span><span class="p">)</span>
+    <span class="n">mappable</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="n">mappable</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">min_prob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_prob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vmin</span> <span class="o">=</span> <span class="n">min_prob</span>
+        <span class="n">vmax</span> <span class="o">=</span> <span class="n">max_prob</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1">#rescale</span>
+        <span class="n">vmin</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">vmax</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">mappable</span><span class="o">.</span><span class="n">set_clim</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span>
+
+    <span class="c1"># division by 4 apparently normalize the colors</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mappable</span><span class="o">.</span><span class="n">cmap</span><span class="p">,</span>
+                    <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span> <span class="c1"># reinserts into kwargs</span>
 
     <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mappable</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
     <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>

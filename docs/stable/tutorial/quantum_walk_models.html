@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quantum Walk Models &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>Quantum Walk Models &#8212; Hiperwalk latest documentation</title>
   
   
   
@@ -41,12 +41,12 @@
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/quantum_walk_models';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.org/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Plotting Customization" href="plotting_customization.html" />
+    <link rel="next" title="Plotting" href="plotting.html" />
     <link rel="prev" title="Graphs" href="graphs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -118,7 +118,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      stable  <!-- this text may get changed later by javascript -->
+      latest  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -306,7 +306,7 @@ document.write(`
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="graphs.html">Graphs</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Quantum Walk Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plotting_customization.html">Plotting Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting</a></li>
 </ul>
 </div>
 </nav></div>
@@ -366,57 +366,55 @@ document.write(`
                   
   <section id="quantum-walk-models">
 <h1>Quantum Walk Models<a class="headerlink" href="#quantum-walk-models" title="Permalink to this heading">#</a></h1>
-<p>There is a plethora of Quantum Walk models.
-Hiperwalk offers a common interface for all quantum walks.
-This interface is the abstract class <a class="reference internal" href="../documentation/generated/hiperwalk.QuantumWalk.html#hiperwalk.QuantumWalk" title="hiperwalk.QuantumWalk"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk</span></code></a> –
-a class that cannot be instantiated.
-It is possible, however to inherit from <a class="reference internal" href="../documentation/generated/hiperwalk.QuantumWalk.html#hiperwalk.QuantumWalk" title="hiperwalk.QuantumWalk"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk</span></code></a>.
-All its methods and attributes will be available for the child class.
-Even though the abstract methods must be overriden by the child class
-since they are model dependent.</p>
-<p>Currently, there are two models available.
-The Coined model (<a class="reference internal" href="../documentation/generated/hiperwalk.CoinedWalk.html#hiperwalk.CoinedWalk" title="hiperwalk.CoinedWalk"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk</span></code></a>) and
-the Continuous model (<a class="reference internal" href="../documentation/generated/hiperwalk.ContinuousWalk.html#hiperwalk.ContinuousWalk" title="hiperwalk.ContinuousWalk"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk</span></code></a>).
-The user is encouraged to implement a new model and
-add it to the Hiperwalk package
-(see <a class="reference internal" href="../development/index.html#docs-development"><span class="std std-ref">Development</span></a> Section).</p>
+<p>There are numerous known quantum walk models. Hiperwalk offers a
+unified interface for all quantum walks via the abstract
+class <a class="reference internal" href="../documentation/generated/hiperwalk.QuantumWalk.html#hiperwalk.QuantumWalk" title="hiperwalk.QuantumWalk"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk</span></code></a>. This class cannot be instantiated
+directly, but it can be inherited from. All its methods and attributes
+will be available to the child class. However, the abstract methods must
+be overridden by the child class as they are model-dependent.</p>
+<p>Currently, two models are available: the Coined model
+(<a class="reference internal" href="../documentation/generated/hiperwalk.CoinedWalk.html#hiperwalk.CoinedWalk" title="hiperwalk.CoinedWalk"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk</span></code></a>) and the Continuous model
+(<a class="reference internal" href="../documentation/generated/hiperwalk.ContinuousWalk.html#hiperwalk.ContinuousWalk" title="hiperwalk.ContinuousWalk"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk</span></code></a>). Users are encouraged
+to implement new models and add them to the Hiperwalk
+package (see the <a class="reference internal" href="../development/index.html#docs-development"><span class="std std-ref">Development</span></a> section
+for more information).”</p>
 <section id="creating-a-quantum-walk">
 <h2>Creating a Quantum Walk<a class="headerlink" href="#creating-a-quantum-walk" title="Permalink to this heading">#</a></h2>
-<p>For creating a Quantum Walk,
-we must define in which graph the Quantum Walk occurs.
-This can be done by passing a <a class="reference internal" href="../documentation/generated/hiperwalk.Graph.html#hiperwalk.Graph" title="hiperwalk.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.Graph</span></code></a> object to
-the Quantum Walk constructor.</p>
-<p>For example, suppose that <code class="docutils literal notranslate"><span class="pre">cycle</span></code> is an instance of
+<p>For creating a quantum walk,
+we must first define the graph in which the quantum walk will
+take place. This can be accomplished by passing a <a class="reference internal" href="../documentation/generated/hiperwalk.Graph.html#hiperwalk.Graph" title="hiperwalk.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.Graph</span></code></a>
+object to the Quantum Walk constructor.</p>
+<p>For example, consider that <code class="docutils literal notranslate"><span class="pre">cycle</span></code> is an instance of
 <a class="reference internal" href="../documentation/generated/hiperwalk.Cycle.html#hiperwalk.Cycle" title="hiperwalk.Cycle"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.Cycle</span></code></a> with 11 vertices.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cycle</span> 
 <span class="go">&lt;hiperwalk.graph.cycle.Cycle object at 0x7f657268c0d0&gt;</span>
 </pre></div>
 </div>
 <p>Since <a class="reference internal" href="../documentation/generated/hiperwalk.Cycle.html#hiperwalk.Cycle" title="hiperwalk.Cycle"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.Cycle</span></code></a> is a child of <a class="reference internal" href="../documentation/generated/hiperwalk.Graph.html#hiperwalk.Graph" title="hiperwalk.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">hiperwalk.Graph</span></code></a>,
-we can also pass <code class="docutils literal notranslate"><span class="pre">cycle</span></code> to the quantum walk constructor.</p>
-<p>For creating the Coined Quantum Walk we execute</p>
+we can pass <code class="docutils literal notranslate"><span class="pre">cycle</span></code> to the quantum walk constructor.</p>
+<p>To create a coined quantum walk, we execute</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span> <span class="o">=</span> <span class="n">hpw</span><span class="o">.</span><span class="n">CoinedWalk</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">cycle</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span> 
 <span class="go">&lt;hiperwalk.quantum_walk.coined_walk.CoinedWalk object at 0x7f655b0cd900&gt;</span>
 </pre></div>
 </div>
-<p>The Hilbert space of the Coined Quantum Walk has dimension
-:math`2|E|`:, i.e. the number of arcs.</p>
+<p>The Hilbert space of the coined quantum walk has dimension
+<span class="math notranslate nohighlight">\(2|E|\)</span>, i.e. the number of arcs.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">hilbert_space_dimension</span><span class="p">()</span> <span class="o">==</span> <span class="n">cycle</span><span class="o">.</span><span class="n">number_of_arcs</span><span class="p">()</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>For creating the Continuous Walk,
-we must pass both the graph and the <code class="docutils literal notranslate"><span class="pre">gamma</span></code> parameter.
-The <code class="docutils literal notranslate"><span class="pre">gamma</span></code> is required because
-no default <code class="docutils literal notranslate"><span class="pre">gamma</span></code> value exists in the literature.</p>
+<p>To create a continuous-time quantum walk,
+we need to pass both the graph and the <code class="docutils literal notranslate"><span class="pre">gamma</span></code> parameter.
+The <code class="docutils literal notranslate"><span class="pre">gamma</span></code> parameter is required because there is no universally
+accepted default value for <code class="docutils literal notranslate"><span class="pre">gamma</span></code> in the literature.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">continuous</span> <span class="o">=</span> <span class="n">hpw</span><span class="o">.</span><span class="n">ContinuousWalk</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">cycle</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">continuous</span> 
 <span class="go">&lt;hiperwalk.quantum_walk.continuous_walk.ContinuousWalk object at 0x7f655b0cd8d0&gt;</span>
 </pre></div>
 </div>
-<p>The Hilbert space of the Continuous Quantum Walk has dimension
-:math`|V|`:, i.e. the number of verties.</p>
+<p>The Hilbert space of the continuous-time quantum walk has dimension
+<span class="math notranslate nohighlight">\(|V|\)</span>, i.e. the number of vertices.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">continuous</span><span class="o">.</span><span class="n">hilbert_space_dimension</span><span class="p">()</span> <span class="o">==</span> <span class="n">cycle</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()</span>
 <span class="go">True</span>
 </pre></div>
@@ -428,16 +426,18 @@ no default <code class="docutils literal notranslate"><span class="pre">gamma</s
 The user can create a state of the computational basis
 (<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.ket.html#hiperwalk.QuantumWalk.ket" title="hiperwalk.QuantumWalk.ket"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.ket()</span></code></a>),
 a uniform superposition (<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.uniform_state.html#hiperwalk.QuantumWalk.uniform_state" title="hiperwalk.QuantumWalk.uniform_state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.uniform_state()</span></code></a>,
-or a general superposition (<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.state.html#hiperwalk.QuantumWalk.state" title="hiperwalk.QuantumWalk.state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.state()</span></code></a>).</p>
+or an arbitrary superposition (<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.state.html#hiperwalk.QuantumWalk.state" title="hiperwalk.QuantumWalk.state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.state()</span></code></a>).</p>
 <section id="state-of-the-computational-basis">
 <h3>State of the computational basis<a class="headerlink" href="#state-of-the-computational-basis" title="Permalink to this heading">#</a></h3>
-<p>Any state of the computational basis may be created using the
+<p>Any state of the computational basis can be created using the
 <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.ket.html#hiperwalk.QuantumWalk.ket" title="hiperwalk.QuantumWalk.ket"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.ket()</span></code></a> method
 as long as the correct label is passed.</p>
-<p>For the Coined Quantum Walk model,
-the label of a computational basis state is given by its arc.
-We may use either the arc notation (passing the arc’s tail and head),
-or the arc label (refer to the Graph class for appropriate arc labelling).</p>
+<p>In the coined quantum walk model,
+the label of a state within the computational basis corresponds
+to an arc. You can use either the arc notation, which involves
+specifying the arc’s tail and head,
+or the arc label (an integer). Please refer to the Graph class
+for correct arc labeling guidelines.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">coined</span><span class="o">.</span><span class="n">ket</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">state</span>
 <span class="go">array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0.,</span>
@@ -447,7 +447,7 @@ or the arc label (refer to the Graph class for appropriate arc labelling).</p>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>An easy way to convert between arc notation and arc label is by using
+<p>An easy way to convert between arc notation and the numerical label is by using
 the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.Graph.arc.html#hiperwalk.Graph.arc" title="hiperwalk.Graph.arc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.Graph.arc()</span></code></a> and
 <a class="reference internal" href="../documentation/generated/generated/hiperwalk.Graph.arc_label.html#hiperwalk.Graph.arc_label" title="hiperwalk.Graph.arc_label"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.Graph.arc_label()</span></code></a> methods.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arc</span> <span class="o">=</span> <span class="n">cycle</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -460,8 +460,8 @@ the <a class="reference internal" href="../documentation/generated/generated/hip
 <span class="go">(5, 6)</span>
 </pre></div>
 </div>
-<p>For the Continuous model,
-the label are the vertices labels.</p>
+<p>In the continuous-time model,
+the labels correspond directly to the labels of the vertices.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">continuous</span><span class="o">.</span><span class="n">ket</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">array([0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0.])</span>
 </pre></div>
@@ -469,9 +469,9 @@ the label are the vertices labels.</p>
 </section>
 <section id="uniform-superposition">
 <h3>Uniform superposition<a class="headerlink" href="#uniform-superposition" title="Permalink to this heading">#</a></h3>
-<p>To greate the uniform superposition,
-the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.uniform_state.html#hiperwalk.QuantumWalk.uniform_state" title="hiperwalk.QuantumWalk.uniform_state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.uniform_state()</span></code></a> method
-works for whichever model.</p>
+<p>To create a uniform superposition,
+you can use the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.uniform_state.html#hiperwalk.QuantumWalk.uniform_state" title="hiperwalk.QuantumWalk.uniform_state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.uniform_state()</span></code></a> method
+which is applicable to any model.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">uniform_state</span><span class="p">()</span>
 <span class="go">array([0.21320072, 0.21320072, 0.21320072, 0.21320072, 0.21320072,</span>
 <span class="go">       0.21320072, 0.21320072, 0.21320072, 0.21320072, 0.21320072,</span>
@@ -485,15 +485,15 @@ works for whichever model.</p>
 </pre></div>
 </div>
 </section>
-<section id="general-state">
-<h3>General state<a class="headerlink" href="#general-state" title="Permalink to this heading">#</a></h3>
-<p>Creating a general state with the
-<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.state.html#hiperwalk.QuantumWalk.state" title="hiperwalk.QuantumWalk.state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.state()</span></code></a> method may be a bit tricky.
-A list of amplitudes and computational basis labels is expected,
-i.e. multiple <code class="docutils literal notranslate"><span class="pre">[amplitude,</span> <span class="pre">label]</span></code> entries.</p>
-<p>For the Coined model,
-the labels are either the arc label or the arc notation <code class="docutils literal notranslate"><span class="pre">(tail,</span> <span class="pre">head)</span></code>.
-Using the arc labels we obtain</p>
+<section id="arbitrary-state">
+<h3>Arbitrary state<a class="headerlink" href="#arbitrary-state" title="Permalink to this heading">#</a></h3>
+<p>Creating a generic state with the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.state.html#hiperwalk.QuantumWalk.state" title="hiperwalk.QuantumWalk.state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.state()</span></code></a>
+method can be a bit challenging. It expects a list consisting
+of <code class="docutils literal notranslate"><span class="pre">[amplitude,</span> <span class="pre">label]</span></code> entries, where each entry represents an amplitude
+and a label of the computational basis.</p>
+<p>In the coined model,
+the labels are either numerical or a <code class="docutils literal notranslate"><span class="pre">(tail,</span> <span class="pre">head)</span></code> in  the arc notation.
+An example using numeric labels is</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>             <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
 <span class="gp">... </span>             <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
@@ -502,7 +502,7 @@ Using the arc labels we obtain</p>
 <span class="go">       0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ])</span>
 </pre></div>
 </div>
-<p>While using the equivalent arc notation we obtain</p>
+<p>and using the equivalent arc notation is</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
 <span class="gp">... </span>             <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
 <span class="gp">... </span>             <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
@@ -516,8 +516,8 @@ Using the arc labels we obtain</p>
 <p>Do not forget the parenthesis while using the arc notation
 for generating a state.</p>
 </div>
-<p>For the Continuous model,
-the labels are the vertices labels.</p>
+<p>For the continuous-time model,
+the labels correspond to the labels of the vertices:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">continuous</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>                 <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
 <span class="gp">... </span>                 <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
@@ -526,7 +526,7 @@ the labels are the vertices labels.</p>
 </pre></div>
 </div>
 <p>Since <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.state.html#hiperwalk.QuantumWalk.state" title="hiperwalk.QuantumWalk.state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.state()</span></code></a> must return a valid state,
-the amplitudes are normalized if needed.</p>
+the amplitudes are renormalized when needed.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">continuous</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
 <span class="gp">... </span>                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
@@ -536,27 +536,24 @@ the amplitudes are normalized if needed.</p>
 </div>
 </section>
 </section>
-<section id="simulating">
-<h2>Simulating<a class="headerlink" href="#simulating" title="Permalink to this heading">#</a></h2>
-<p>Once a quantum walk is created,
-a valid evolution operator is associated with it.
-The user may change the evolution operator
-upon the quantum walk creation or afterwards.
-After defining the evolution operator,
-the user invokes the simulation process,
-determining which intermediate states are of interest.</p>
+<section id="simulation-of-propagation">
+<h2>Simulation of Propagation<a class="headerlink" href="#simulation-of-propagation" title="Permalink to this heading">#</a></h2>
+<p>Once a quantum walk is defined, it is linked to an appropriate evolution operator.
+The user has the flexibility to modify this operator either during
+the quantum walk’s creation or at any time afterward. Once the evolution
+operator is set, the user triggers the simulation process,
+deciding which intermediate states are of particular interest.</p>
 <section id="configuring-the-evolution-operator">
 <h3>Configuring the evolution operator<a class="headerlink" href="#configuring-the-evolution-operator" title="Permalink to this heading">#</a></h3>
-<p>To configure the evolution operator,
-check the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.set_evolution.html#hiperwalk.QuantumWalk.set_evolution" title="hiperwalk.QuantumWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.set_evolution()</span></code></a> method.
-This method parameters are model-dependent.</p>
-<p>Regardless of the method,
-<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.set_evolution.html#hiperwalk.QuantumWalk.set_evolution" title="hiperwalk.QuantumWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.set_evolution()</span></code></a> is invoked upon the
-Quantum Walk instantiation.
-Hence, the constructors accept any parameter valid for <code class="docutils literal notranslate"><span class="pre">set_evolution</span></code>.
-To illustrate this,
-let us analyze the explicit evolution operator of two Coined Walks
-(which can be obtained by <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.get_evolution.html#hiperwalk.QuantumWalk.get_evolution" title="hiperwalk.QuantumWalk.get_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.get_evolution()</span></code></a>).</p>
+<p>To set up the evolution operator, users should refer to
+the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.set_evolution.html#hiperwalk.QuantumWalk.set_evolution" title="hiperwalk.QuantumWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.set_evolution()</span></code></a> method.
+Note that the parameters for this method depend on the model being used.</p>
+<p>Regardless of the method employed, <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.set_evolution.html#hiperwalk.QuantumWalk.set_evolution" title="hiperwalk.QuantumWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.set_evolution()</span></code></a>
+is invoked when the quantum walk is instantiated. Consequently, the
+constructors accept any parameter that is valid for the <code class="docutils literal notranslate"><span class="pre">set_evolution</span></code> method.
+To illustrate this point, let us examine the explicit evolution operator
+of two coined walks, which can be derived using
+the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.get_evolution.html#hiperwalk.QuantumWalk.get_evolution" title="hiperwalk.QuantumWalk.get_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.get_evolution()</span></code></a> method from the QuantumWalk class.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span> <span class="o">=</span> <span class="n">coined</span><span class="o">.</span><span class="n">get_evolution</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">set_evolution</span><span class="p">(</span><span class="n">shift</span><span class="o">=</span><span class="s1">&#39;flipflop&#39;</span><span class="p">,</span> <span class="n">coin</span><span class="o">=</span><span class="s1">&#39;grover&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U2</span> <span class="o">=</span> <span class="n">coined</span><span class="o">.</span><span class="n">get_evolution</span><span class="p">()</span>
@@ -570,35 +567,35 @@ let us analyze the explicit evolution operator of two Coined Walks
 </div>
 <section id="coined-model">
 <h4>Coined Model<a class="headerlink" href="#coined-model" title="Permalink to this heading">#</a></h4>
-<p>The <a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_evolution.html#hiperwalk.CoinedWalk.set_evolution" title="hiperwalk.CoinedWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_evolution()</span></code></a>
+<p>The <a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_evolution.html#hiperwalk.CoinedWalk.set_evolution" title="hiperwalk.CoinedWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_evolution()</span></code></a> method
 accepts three key arguments:
-<code class="docutils literal notranslate"><span class="pre">shift</span></code>, <code class="docutils literal notranslate"><span class="pre">coin</span></code>, and <code class="docutils literal notranslate"><span class="pre">marked</span></code>.
-Respectively,
-they are the arguments of
+<code class="docutils literal notranslate"><span class="pre">shift</span></code>, <code class="docutils literal notranslate"><span class="pre">coin</span></code>, and <code class="docutils literal notranslate"><span class="pre">marked</span></code>,
+which are the arguments of
 <a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_shift.html#hiperwalk.CoinedWalk.set_shift" title="hiperwalk.CoinedWalk.set_shift"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_shift()</span></code></a>,
 <a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_coin.html#hiperwalk.CoinedWalk.set_coin" title="hiperwalk.CoinedWalk.set_coin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_coin()</span></code></a>, and
-<a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_marked.html#hiperwalk.CoinedWalk.set_marked" title="hiperwalk.CoinedWalk.set_marked"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_marked()</span></code></a>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">shift</span></code> key must have either a string value
-(<code class="docutils literal notranslate"><span class="pre">'persistent'</span></code> or <code class="docutils literal notranslate"><span class="pre">'flipflop'</span></code>) or
-the explicit operator.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">coin</span></code> key accepts four types of entries.</p>
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_marked.html#hiperwalk.CoinedWalk.set_marked" title="hiperwalk.CoinedWalk.set_marked"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_marked()</span></code></a>,
+respectively.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">shift</span></code> key can either take a string value
+(<code class="docutils literal notranslate"><span class="pre">'persistent'</span></code> or <code class="docutils literal notranslate"><span class="pre">'flipflop'</span></code>), or the explicit operator.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">coin</span></code> key can accept four types of inputs:</p>
 <ul class="simple">
-<li><p>The explicit coin.</p></li>
-<li><p>A string with the coin name to be applied to all vertices.</p></li>
-<li><p>A list of strings of size <span class="math notranslate nohighlight">\(|V|\)</span> with the coin names
-where the <span class="math notranslate nohighlight">\(i\)</span>-th coin will be applied to the <span class="math notranslate nohighlight">\(i\)</span>-th vertex.</p></li>
-<li><p>A dictionary with the coin name as key and
-the list of vertices as values.
-The coin depicted as key will be applied to
-the vertices depicted as values.
-If the list of vertices is the empty list <code class="docutils literal notranslate"><span class="pre">[]</span></code>,
-that coin is going to be applied to all remaining vertices.</p></li>
+<li><p>An explicit coin.</p></li>
+<li><p>A string specifying the coin name, which will be applied to all vertices.</p></li>
+<li><p>A list of strings of size equal to the number of vertices <span class="math notranslate nohighlight">\(|V|\)</span>
+specifying the coin names where the <span class="math notranslate nohighlight">\(i\)</span>-th coin will be applied to
+the <span class="math notranslate nohighlight">\(i\)</span>-th vertex.</p></li>
+<li><p>A dictionary with the coin name as the key and
+a list of vertices as values.
+The coin referred to by the key will be applied to the vertices
+listed as its values
+If the list of vertices is empty <code class="docutils literal notranslate"><span class="pre">[]</span></code>,
+that particular coin will be applied to all the remaining vertices.</p></li>
 </ul>
 <p>There are eight possible coin names:
 <code class="docutils literal notranslate"><span class="pre">'fourier'</span></code>, <code class="docutils literal notranslate"><span class="pre">'grover'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hadamard'</span></code>, <code class="docutils literal notranslate"><span class="pre">'identity'</span></code>, and
-its variants with the <code class="docutils literal notranslate"><span class="pre">'minus_'</span></code> prefix to it.</p>
-<p>The following are equivalent ways of generating a coin
-that applies Grover to all vertices.</p>
+their respective variants prefixed with <code class="docutils literal notranslate"><span class="pre">'minus_'</span></code>.</p>
+<p>The following are examples of how you could generate a coin that applies
+the Grover operator to all vertices.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">set_coin</span><span class="p">(</span><span class="n">coin</span><span class="o">=</span><span class="s1">&#39;grover&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C1</span> <span class="o">=</span> <span class="n">coined</span><span class="o">.</span><span class="n">get_coin</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">set_coin</span><span class="p">(</span><span class="n">coin</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;grover&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">11</span><span class="p">)</span>
@@ -611,7 +608,7 @@ that applies Grover to all vertices.</p>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>The following are valid ways of generating a con that applies
+<p>The following are valid ways of generating a coin that applies
 Grover to even vertices and Hadamard to odd vertices.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">set_coin</span><span class="p">(</span><span class="n">coin</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;grover&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;hadamard&#39;</span>
 <span class="gp">... </span>                      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)])</span>
@@ -623,20 +620,20 @@ Grover to even vertices and Hadamard to odd vertices.</p>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">marked</span></code> key accepts two types of entries.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">marked</span></code> key can accept two types of inputs:</p>
 <ul class="simple">
-<li><p>A list of the marked vertices.
-The vertices are just set as marked,
+<li><p>A list of the marked vertices: In this case,
+the vertices are simply set as marked,
 but the coin operator remains unchanged.</p></li>
 <li><p>A dictionary with the coin name as key and
-the list of vertices as values.
-This is analogous to the dictionary accepted by
-<a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_coin.html#hiperwalk.CoinedWalk.set_coin" title="hiperwalk.CoinedWalk.set_coin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_coin()</span></code></a>.
+the list of vertices as values:
+This operates similarly to the dictionary accepted by the
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_coin.html#hiperwalk.CoinedWalk.set_coin" title="hiperwalk.CoinedWalk.set_coin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_coin()</span></code></a> method.
 The vertices are set as marked and
-<em>the coin operator is changed</em> accordingly.</p></li>
+<em>the coin operator is modified</em> accordingly.</p></li>
 </ul>
-<p>The following are two ways of generating the same evolution operator
-with the same set of marked vertices.</p>
+<p>Here are examples of how to create a coin that applies the Grover
+operator to even vertices and the Hadamard operator to odd vertices:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">set_coin</span><span class="p">(</span><span class="n">coin</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;grover&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
 <span class="gp">... </span>                      <span class="s1">&#39;minus_identity&#39;</span><span class="p">:</span> <span class="p">[]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">coined</span><span class="o">.</span><span class="n">set_marked</span><span class="p">(</span><span class="n">marked</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
@@ -652,22 +649,23 @@ with the same set of marked vertices.</p>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>We may combine all these keys in a single
-<a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_evolution.html#hiperwalk.CoinedWalk.set_evolution" title="hiperwalk.CoinedWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_evolution()</span></code></a> call
-or object instantiation.</p>
+<p>All these keys can be integrated into a single call to the
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.CoinedWalk.set_evolution.html#hiperwalk.CoinedWalk.set_evolution" title="hiperwalk.CoinedWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.CoinedWalk.set_evolution()</span></code></a> method when creating
+an instance of the object.</p>
 </section>
-<section id="continuous-model">
-<h4>Continuous Model<a class="headerlink" href="#continuous-model" title="Permalink to this heading">#</a></h4>
-<p>The dynamics of the Continuous Quantum Walk is
-completely described by the Hamiltonian.
-Hence, <a class="reference internal" href="../documentation/generated/generated/hiperwalk.ContinuousWalk.set_evolution.html#hiperwalk.ContinuousWalk.set_evolution" title="hiperwalk.ContinuousWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk.set_evolution()</span></code></a>
-is equivalent to <a class="reference internal" href="../documentation/generated/generated/hiperwalk.ContinuousWalk.set_hamiltonian.html#hiperwalk.ContinuousWalk.set_hamiltonian" title="hiperwalk.ContinuousWalk.set_hamiltonian"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk.set_hamiltonian()</span></code></a>.
+<section id="continuous-time-model">
+<h4>Continuous-time Model<a class="headerlink" href="#continuous-time-model" title="Permalink to this heading">#</a></h4>
+<p>The dynamics of the continuous-time quantum walk is
+fully defined by the Hamiltonian.
+As a result, calling <a class="reference internal" href="../documentation/generated/generated/hiperwalk.ContinuousWalk.set_evolution.html#hiperwalk.ContinuousWalk.set_evolution" title="hiperwalk.ContinuousWalk.set_evolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk.set_evolution()</span></code></a>
+is the same as calling <a class="reference internal" href="../documentation/generated/generated/hiperwalk.ContinuousWalk.set_hamiltonian.html#hiperwalk.ContinuousWalk.set_hamiltonian" title="hiperwalk.ContinuousWalk.set_hamiltonian"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk.set_hamiltonian()</span></code></a>
+in the same class.
 The Hamiltonian is given by</p>
 <div class="math notranslate nohighlight">
 \[H = -\gamma A - \sum_{m \in M} \ket m \bra m\]</div>
 <p>where <span class="math notranslate nohighlight">\(A\)</span> is the graph adjacency matrix and
 <span class="math notranslate nohighlight">\(M\)</span> is the set of marked vertices.
-Hence <code class="docutils literal notranslate"><span class="pre">set_hamiltonian</span></code> accepts two arguments.
+Therefore, the <code class="docutils literal notranslate"><span class="pre">set_hamiltonian</span></code> method accepts two arguments:
 * <code class="docutils literal notranslate"><span class="pre">gamma</span></code>: the value of gamma.
 * <code class="docutils literal notranslate"><span class="pre">marked</span></code>: the list of marked vertices.
 For example,</p>
@@ -676,11 +674,11 @@ For example,</p>
 <span class="go">&lt;hiperwalk.quantum_walk.continuous_walk.ContinuousWalk object at 0x7ffad2de9510&gt;</span>
 </pre></div>
 </div>
-<p>The evolution operator is calculated by</p>
+<p>The evolution operator is defined as</p>
 <div class="math notranslate nohighlight">
 \[U = e^{-\text{i} t H}.\]</div>
-<p>Since the Continuous Walk evolution operator is time-dependent,
-it must be generated by demand given the last timestamp.</p>
+<p>Since the continuous-time evolution operator is time-dependent,
+it should be generated as needed, based on the most recent timestamp.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span> <span class="o">=</span> <span class="n">continuous</span><span class="o">.</span><span class="n">get_evolution</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">continuous</span><span class="o">.</span><span class="n">set_marked</span><span class="p">(</span><span class="n">marked</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U2</span> <span class="o">=</span> <span class="n">continuous</span><span class="o">.</span><span class="n">get_evolution</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -692,20 +690,20 @@ it must be generated by demand given the last timestamp.</p>
 </section>
 <section id="simulation-invocation">
 <h3>Simulation Invocation<a class="headerlink" href="#simulation-invocation" title="Permalink to this heading">#</a></h3>
-<p>After setting the evolution operator,
-the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.simulate.html#hiperwalk.QuantumWalk.simulate" title="hiperwalk.QuantumWalk.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.simulate()</span></code></a> method must be invoked
-to perform the simulation.
-There are two key arguments for this method:
+<p>Once the evolution operator is set,
+the <a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.simulate.html#hiperwalk.QuantumWalk.simulate" title="hiperwalk.QuantumWalk.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.simulate()</span></code></a> method
+needs to be called in order to carry out the simulation.
+This method primarily requires two arguments:
 <code class="docutils literal notranslate"><span class="pre">time</span></code> and <code class="docutils literal notranslate"><span class="pre">initial_state</span></code>.
-The <code class="docutils literal notranslate"><span class="pre">time</span></code> describes when the simulation stops
-and which intermediate states must be saved.
+The <code class="docutils literal notranslate"><span class="pre">time</span></code> argument specifies when the simulation should
+stop and which intermediate states need to be stored.
 The evolution operator will be applied to the <code class="docutils literal notranslate"><span class="pre">initial_state</span></code>
-as many times as needed.
+as many times as necessary.
 The simulation returns a list of states such that
 the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th entry corresponds to the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th saved state.</p>
 <section id="id1">
 <h4>Coined Model<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
-<p>In the Coined Walk model,
+<p>In the coined quantum walk model,
 the <code class="docutils literal notranslate"><span class="pre">time</span></code> is discrete.
 Thus, only integer entries are accepted.
 There are three argument types for <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
@@ -760,17 +758,18 @@ if <code class="docutils literal notranslate"><span class="pre">time=(1,</span> 
 </ul>
 </section>
 <section id="id2">
-<h4>Continuous Model<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
-<p>In the Continuous Walk model,
-the <code class="docutils literal notranslate"><span class="pre">time</span></code> is continuous.
-Thus, float entries are accepted.
-It works analogous to the Coined Model,
-but <code class="docutils literal notranslate"><span class="pre">step</span></code> is used to rescale all values.</p>
+<h4>Continuous-time Model<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>In the continuous-time quantum walk model,
+the <code class="docutils literal notranslate"><span class="pre">time</span></code> parameter is continuous, which means it can accept
+float values. The operation is similar to the coined model, but here,
+the <code class="docutils literal notranslate"><span class="pre">step</span></code> parameter is used to rescale all values.
+This means the <code class="docutils literal notranslate"><span class="pre">step</span></code> parameter adjusts the scale of time,
+accommodating the continuous nature of time in this model.</p>
 <ul class="simple">
 <li><p>float : <code class="docutils literal notranslate"><span class="pre">stop</span></code>. Unchanged.</p></li>
 <li><p>2-tuple of float : <code class="docutils literal notranslate"><span class="pre">(stop,</span> <span class="pre">step)</span></code>.
 The evolution operator <code class="docutils literal notranslate"><span class="pre">continuous.get_evolution(time=step)</span></code> is
-considered a single step and the <code class="docutils literal notranslate"><span class="pre">time</span></code> is converted to
+considered a single step and the <code class="docutils literal notranslate"><span class="pre">time</span></code> parameter is converted to
 <code class="docutils literal notranslate"><span class="pre">(stop/step,</span> <span class="pre">1)</span></code>.
 The value <code class="docutils literal notranslate"><span class="pre">stop/step</span></code> is rounded up if it is within
 a <code class="docutils literal notranslate"><span class="pre">1e-05</span></code> value of the next integer
@@ -779,16 +778,67 @@ and rounded down otherwise.</p></li>
 The evolution operator <code class="docutils literal notranslate"><span class="pre">continuous.get_evolution(time=step)</span></code> is
 considered a single step and the <code class="docutils literal notranslate"><span class="pre">time</span></code> is converted to
 <code class="docutils literal notranslate"><span class="pre">(start/step,</span> <span class="pre">stop/step,</span> <span class="pre">1)</span></code>.
-The values <code class="docutils literal notranslate"><span class="pre">start/step</span></code> and <code class="docutils literal notranslate"><span class="pre">stop/step</span></code> are rounded up
-if it is within a <code class="docutils literal notranslate"><span class="pre">1e-05</span></code> value of the next integer
-and rounded down otherwise.</p></li>
+The values <code class="docutils literal notranslate"><span class="pre">start/step</span></code> and <code class="docutils literal notranslate"><span class="pre">stop/step</span></code> are subjected to rounding.
+If it’s within a 1e-05 value of the next integer, it’s rounded up;
+otherwise, it’s rounded down. This ensures a more accurate representation
+of time within the model’s continuous framework.</p></li>
 </ul>
+<p>For example, if <code class="docutils literal notranslate"><span class="pre">time=(10,</span> <span class="pre">0.51)</span></code> –
+which is equivalent to <code class="docutils literal notranslate"><span class="pre">time=(0,</span> <span class="pre">10,</span> <span class="pre">0.51)</span></code> –
+it is converted to <code class="docutils literal notranslate"><span class="pre">(19,</span> <span class="pre">1)</span></code>.
+Thus, the states corresponding to timestamps
+<code class="docutils literal notranslate"><span class="pre">[0.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">0.501,</span> <span class="pre">1.002,</span> <span class="pre">1.503,</span> <span class="pre">...,</span> <span class="pre">9.018,</span> <span class="pre">9.519]</span></code> wil be stored.
+On the other hand, if <code class="docutils literal notranslate"><span class="pre">time=(10,</span> <span class="pre">0.5000001)</span></code>,
+it is converted to <code class="docutils literal notranslate"><span class="pre">(20,</span> <span class="pre">1)</span></code>, which
+results in the states corresponding to the timestamps
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">0.</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">,</span>&#160; <span class="pre">0.5000001,</span>&#160; <span class="pre">1.0000002,</span>&#160; <span class="pre">...,</span>&#160; <span class="pre">9.5000019,</span> <span class="pre">10.000002</span> <span class="pre">])</span></code>.</p>
 </section>
 </section>
 </section>
 <section id="calculating-probability">
 <h2>Calculating Probability<a class="headerlink" href="#calculating-probability" title="Permalink to this heading">#</a></h2>
-<p>probability vs probability distribution</p>
+<p>There are two ways of calculating probabilities:
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.probability.html#hiperwalk.QuantumWalk.probability" title="hiperwalk.QuantumWalk.probability"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.probability()</span></code></a> and
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.probability_distribution.html#hiperwalk.QuantumWalk.probability_distribution" title="hiperwalk.QuantumWalk.probability_distribution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.probability_distribution()</span></code></a>.
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.probability.html#hiperwalk.QuantumWalk.probability" title="hiperwalk.QuantumWalk.probability"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.probability()</span></code></a> computes
+the probability of each state entry.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">probs</span> <span class="o">=</span> <span class="n">coined</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../documentation/generated/generated/hiperwalk.QuantumWalk.probability_distribution.html#hiperwalk.QuantumWalk.probability_distribution" title="hiperwalk.QuantumWalk.probability_distribution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.QuantumWalk.probability_distribution()</span></code></a>
+calculates the probability of each vertex.
+Basically, the probability of vertex <code class="docutils literal notranslate"><span class="pre">v</span></code> is
+the sum of the probabilities of each entry
+corresponding to arcs with tail <code class="docutils literal notranslate"><span class="pre">v</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prob_dist</span> <span class="o">=</span> <span class="n">coined</span><span class="o">.</span><span class="n">probability_distribution</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">prob_dist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">prob_dist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Since each vertex on a cycle has degree 2, the following is True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">prob_dist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the Continuous model,
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.ContinuousWalk.probability.html#hiperwalk.ContinuousWalk.probability" title="hiperwalk.ContinuousWalk.probability"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk.probability()</span></code></a> and
+<a class="reference internal" href="../documentation/generated/generated/hiperwalk.ContinuousWalk.probability_distribution.html#hiperwalk.ContinuousWalk.probability_distribution" title="hiperwalk.ContinuousWalk.probability_distribution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hiperwalk.ContinuousWalk.probability_distribution()</span></code></a> yield
+the same result.</p>
+</div>
+<p>Having obtained a probability distribution, the user may find it helpful to
+visualize this data graphically to gain further insights. Graphical
+representation can make complex data more understandable, reveal underlying
+patterns, and support more effective data analysis.</p>
+<p>For more information about how to create plots and customize them to best
+represent your data, please refer to the following section. This will cover
+the specifics of data visualization, including various plotting techniques
+and customization options.</p>
 </section>
 </section>
 
@@ -813,11 +863,11 @@ and rounded down otherwise.</p></li>
       </div>
     </a>
     <a class="right-next"
-       href="plotting_customization.html"
+       href="plotting.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Plotting Customization</p>
+        <p class="prev-next-title">Plotting</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -843,18 +893,18 @@ and rounded down otherwise.</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-state">Creating a State</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-of-the-computational-basis">State of the computational basis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uniform-superposition">Uniform superposition</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-state">General state</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arbitrary-state">Arbitrary state</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating">Simulating</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-of-propagation">Simulation of Propagation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-the-evolution-operator">Configuring the evolution operator</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#coined-model">Coined Model</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-model">Continuous Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-time-model">Continuous-time Model</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-invocation">Simulation Invocation</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Coined Model</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Continuous Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Continuous-time Model</a></li>
 </ul>
 </li>
 </ul>

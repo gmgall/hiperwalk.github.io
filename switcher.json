@@ -1,12 +1,12 @@
 [
     {
-        "name": "stable (2.0a)",
+        "name": "stable",
         "version": "stable",
-        "url": "https://hiperwalk.gmgall.net/docs/stable/"
+        "url": "https://hiperwalk.org/docs/stable/"
     },
     {
         "name": "latest",
         "version": "latest",
-        "url": "https://hiperwalk.gmgall.net/docs/latest/"
+        "url": "https://hiperwalk.org/docs/latest/"
     }
 ]

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Development &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>Development &#8212; Hiperwalk latest documentation</title>
   
   
   
@@ -40,8 +40,8 @@
     <script src="../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'development/index';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.org/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -116,7 +116,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      stable  <!-- this text may get changed later by javascript -->
+      latest  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -348,54 +348,51 @@ document.write(`
                   
   <section id="development">
 <span id="docs-development"></span><h1>Development<a class="headerlink" href="#development" title="Permalink to this heading">#</a></h1>
-<p>HiperWalk is built on top of some Python libraries.
-Before developing for HiperWalk,
-we must install these libraries.
-HiperWalk requires
+<p>HiperWalk is built upon several Python libraries.
+Before developing for HiperWalk, these libraries need to be installed.
+The required libraries include
 <a class="reference external" href="https://numpy.org/">numpy</a>,
 <a class="reference external" href="https://scipy.org/">scipy</a>,
 <a class="reference external" href="https://networkx.org/">networkx</a>, and
 <a class="reference external" href="https://matplotlib.org/">matplotlib</a>.
-To install these libraries run</p>
+To install these libraries, use the following commands:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>numpy
 pip3<span class="w"> </span>install<span class="w"> </span>scipy
 pip3<span class="w"> </span>install<span class="w"> </span>networkx
 pip3<span class="w"> </span>install<span class="w"> </span>matplotlib
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is where the new features are developed.
-To contribute, clone the repository.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is the main development area for new features.
+To contribute, first clone the repository.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hiperwalk/hiperwalk.git
 </pre></div>
 </div>
-<p>Then, make the desired alterations.
-And make a pull request.</p>
+<p>Next, make the desired modifications and submit a pull request.</p>
 <section id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">#</a></h2>
-<p>Tests are located into the <code class="docutils literal notranslate"><span class="pre">hiperwalk/tests/</span></code> directory.
-If you performed the complete installation (with HPC support),
-execute</p>
+<p>Tests are located in the <code class="docutils literal notranslate"><span class="pre">hiperwalk/tests/</span></code> directory.
+If a complete installation (including HPC support) was performed,
+execute:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./run_all.sh
 </pre></div>
 </div>
-<p>If you installed the standalone version (with no HPC support),
-execute</p>
+<p>If you installed the standalone version (without HPC support),
+execute:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./run_nonhpc.sh
 </pre></div>
 </div>
 </section>
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">#</a></h2>
-<p>It is very likely that there are new features in the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.
-These new features are documentated online in the <strong>latest</strong> version.</p>
+<p>There are likely to be new features in the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.
+These features are documented online in the  <strong>latest</strong> version.</p>
 <section id="install-requirements">
 <h3>Install Requirements<a class="headerlink" href="#install-requirements" title="Permalink to this heading">#</a></h3>
-<p>To generate the current (under development) documentation locally,
-it is necessary to install all the HiperWalk requirements
+<p>To generate the current, under-development documentation locally,
+all HiperWalk requirements must be installed
 (see <a class="reference internal" href="../install/index.html#docs-install-hiperwalk"><span class="std std-ref">HiperWalk section in the installation guide</span></a>).</p>
-<p>Supposing that all HiperWalk requirements are installed
-(see <em>TODO</em>),
-the following commands install the remaining documentation only requirements.</p>
+<p>Assuming that all HiperWalk requirements are installed (see <em>TODO</em>),
+the following commands install the remaining documentation-specific requirements.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-sphinx
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>graphviz
 pip3<span class="w"> </span>install<span class="w"> </span>numpydoc
@@ -406,19 +403,17 @@ pip3<span class="w"> </span>install<span class="w"> </span>pydata-sphinx-theme
 </section>
 <section id="generate-documentation">
 <h3>Generate Documentation<a class="headerlink" href="#generate-documentation" title="Permalink to this heading">#</a></h3>
-<p>Inside the <code class="docutils literal notranslate"><span class="pre">hiperwalk/docs/</span></code> directory, execute</p>
+<p>Within the <code class="docutils literal notranslate"><span class="pre">hiperwalk/docs/</span></code> directory, execute:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./go
 </pre></div>
 </div>
 </section>
 <section id="view-generated-documentation">
 <h3>View Generated Documentation<a class="headerlink" href="#view-generated-documentation" title="Permalink to this heading">#</a></h3>
-<p>If everything went right,
-the recently compiled documentation is available locally.
-To view (and test) it,
-open the file <code class="docutils literal notranslate"><span class="pre">hiperwalk/docs/build/html/index.html</span></code>
-in the browser of your reference –
-e.g. by double clicking it.</p>
+<p>If the process was successful, the newly compiled documentation
+is now available for local access. To view (and test) it, open the
+file  <code class="docutils literal notranslate"><span class="pre">hiperwalk/docs/build/html/index.html</span></code>
+in your preferred browser – for instance, by double-clicking on it.</p>
 </section>
 </section>
 <section id="todo">
@@ -428,7 +423,7 @@ e.g. by double clicking it.</p>
 <li><p>The current version was tested with Ubuntu 20.04.
 Hiperwalk failed to be configured in Ubuntu 22.04.</p></li>
 <li><p>The current version only works with GTK 3.0.
-Implementation using GTK 4.0 are postponed to the next release.</p></li>
+Implementation using GTK 4.0 is postponed to the next release.</p></li>
 </ul>
 </section>
 </section>

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hiperwalk.quantum_walk.continuous_walk &#8212; Hiperwalk 2.0a4 documentation</title>
+    <title>hiperwalk.quantum_walk.continuous_walk &#8212; Hiperwalk latest documentation</title>
   
   
   
@@ -39,8 +39,8 @@
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hiperwalk/quantum_walk/continuous_walk';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.gmgall.net/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://hiperwalk.org/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'latest';
         </script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -114,7 +114,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
-      stable  <!-- this text may get changed later by javascript -->
+      latest  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
@@ -356,33 +356,33 @@ document.write(`
 
 <div class="viewcode-block" id="ContinuousWalk"><a class="viewcode-back" href="../../../documentation/generated/hiperwalk.ContinuousWalk.html#hiperwalk.ContinuousWalk">[docs]</a><span class="k">class</span> <span class="nc">ContinuousWalk</span><span class="p">(</span><span class="n">QuantumWalk</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Manage instance of the continuous time quantum walk model</span>
-<span class="sd">    on unweighted graphs.</span>
+<span class="sd">    Manage an instance of a continuous-time quantum walk</span>
+<span class="sd">    on any simple graph.</span>
 
-<span class="sd">    For implemantation details see Notes Section.</span>
+<span class="sd">    For further implementation details, refer to the Notes Section.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    graph :</span>
-<span class="sd">        Graph on which the quantum walk occurs.</span>
-<span class="sd">        There are three two types acceptable.</span>
+<span class="sd">        Graph on which the quantum walk takes place.</span>
+<span class="sd">        There are two acceptable inputs:</span>
 
 <span class="sd">        :class:`hiperwalk.graph.Graph` :</span>
 <span class="sd">            The graph itself.</span>
 
 <span class="sd">        :class:`class:scipy.sparse.csr_array`:</span>
-<span class="sd">            The graph adjacency matrix.</span>
+<span class="sd">            The adjacency matrix of the graph.</span>
 
 <span class="sd">    adjacency : :class:`scipy.sparse.csr_array`, optional</span>
 <span class="sd">        .. deprecated:: 2.0a1</span>
 <span class="sd">            It will be removed in version 2.0.</span>
 <span class="sd">            Use ``graph`` instead.</span>
 
-<span class="sd">        Adjacency matrix of the graph on which the quantum occurs</span>
-<span class="sd">        is going to occur.</span>
+<span class="sd">        Adjacency matrix of the graph on which</span>
+<span class="sd">        the quantum walk takes place.</span>
 
 <span class="sd">    **kwargs : optional</span>
-<span class="sd">        Arguments for setting Hamiltonian.</span>
+<span class="sd">        Arguments to set the Hamiltonian.</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -390,22 +390,26 @@ document.write(`
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    Let :math:`A` be the adjacency matrix of the graph :math:`G(V, E)`.</span>
-<span class="sd">    :math:`A` is a :math:`|V| \times |V|`-dimensional matrix such that</span>
-
+<span class="sd">    The adjacency matrix of a graph :math:`G(V, E)` is</span>
+<span class="sd">    the :math:`|V| \times |V|`-dimensional matrix :math:`A` such that</span>
+<span class="sd">    </span>
 <span class="sd">    .. math::</span>
 <span class="sd">        A_{i,j} = \begin{cases}</span>
 <span class="sd">            1, \text{ if } (i,j) \in E(G),\\</span>
-<span class="sd">            0, \text{ otherwise}</span>
+<span class="sd">            0, \text{ otherwise.}</span>
 <span class="sd">        \end{cases}</span>
 
+<span class="sd">    The Hamiltonian, which depends on the adjacency matrix and the location of </span>
+<span class="sd">    the marked vertices, is described in the</span>
+<span class="sd">    :meth:`hiperwalk.ContinuousWalk.set_hamiltonian` method.</span>
+
 <span class="sd">    The states of the computational basis are :math:`\ket{i}` for</span>
-<span class="sd">    :math:`0 \leq i &lt; |V|` where</span>
+<span class="sd">    :math:`0 \leq i &lt; |V|`, where</span>
 <span class="sd">    :math:`\ket i` is associated with the :math:`i`-th vertex.</span>
 
-<span class="sd">    This class can also be used to simulate the evolution of any</span>
-<span class="sd">    any Hamiltonian.</span>
-<span class="sd">    Simply pass the disered Hamiltonian instead of the adjacency matrix.</span>
+<span class="sd">    This class can also facilitate the simulation of any Hamiltonian</span>
+<span class="sd">    evolution. To do this, simply pass the desired Hamiltonian in place</span>
+<span class="sd">    of the adjacency matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_hamiltonian_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -430,7 +434,9 @@ document.write(`
 
 <div class="viewcode-block" id="ContinuousWalk.set_gamma"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.ContinuousWalk.set_gamma.html#hiperwalk.ContinuousWalk.set_gamma">[docs]</a>    <span class="k">def</span> <span class="nf">set_gamma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set gamma used for the Hamiltonian.</span>
+<span class="sd">        Sets the gamma parameter.</span>
+<span class="sd">        </span>
+<span class="sd">        The gamma parameter is used in the definition of the Hamiltonian.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -450,7 +456,8 @@ document.write(`
 
 <div class="viewcode-block" id="ContinuousWalk.get_gamma"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.ContinuousWalk.get_gamma.html#hiperwalk.ContinuousWalk.get_gamma">[docs]</a>    <span class="k">def</span> <span class="nf">get_gamma</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the gamma used for the Hamiltonian.</span>
+<span class="sd">        Retrieves the gamma value used in</span>
+<span class="sd">        the definition of the Hamiltonian.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -465,17 +472,18 @@ document.write(`
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        **kwargs : </span>
+<span class="sd">        **kwargs :</span>
 <span class="sd">            Additional arguments.</span>
 <span class="sd">            Used for determining the gamma value and marked vertices.</span>
-<span class="sd">            See :meth:`set_gamma` and :meth:`set_marked`.</span>
+<span class="sd">            See :meth:`hiperwalk.ContinuousWalk.set_gamma` and</span>
+<span class="sd">            :meth:`hiperwalk.ContinuousWalk.set_marked`.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        The Hamiltonian is given by</span>
 
 <span class="sd">        .. math::</span>
-<span class="sd">            H = -\gamma A  - \sum_{m \in M} \ket m \bra m</span>
+<span class="sd">            H = -\gamma A  - \sum_{m \in M} \ket m \bra m,</span>
 
 <span class="sd">        where :math:`A` is the adjacency matrix, and</span>
 <span class="sd">        :math:`M` is the set of marked vertices.</span>
@@ -505,7 +513,7 @@ document.write(`
 
 <div class="viewcode-block" id="ContinuousWalk.get_hamiltonian"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.ContinuousWalk.get_hamiltonian.html#hiperwalk.ContinuousWalk.get_hamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">get_hamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns Hamiltonian.</span>
+<span class="sd">        Returns the Hamiltonian.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -528,18 +536,18 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">=</span> <span class="n">H</span>
         <span class="c1"># since the hamiltonian was changed,</span>
         <span class="c1"># the previous evolution operator may not be coherent.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_evolution_operator</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evolution</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">H</span></div>
 
 <div class="viewcode-block" id="ContinuousWalk.set_evolution"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.ContinuousWalk.set_evolution.html#hiperwalk.ContinuousWalk.set_evolution">[docs]</a>    <span class="k">def</span> <span class="nf">set_evolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Alias for :meth:`set_hamiltonian`.</span>
+<span class="sd">        Alias for :meth:`hiperwalk.ContinuousWalk.set_hamiltonian`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_hamiltonian</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ContinuousWalk.get_evolution"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.ContinuousWalk.get_evolution.html#hiperwalk.ContinuousWalk.get_evolution">[docs]</a>    <span class="k">def</span> <span class="nf">get_evolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hpc</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the evolution operator.</span>
+<span class="sd">        Returns the evolution operator.</span>
 
 <span class="sd">        Constructs the evolution operator based on the previously</span>
 <span class="sd">        set Hamiltonian.</span>
@@ -547,12 +555,11 @@ document.write(`
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        time : float</span>
-<span class="sd">            Gerate the evolution operator of the given time.</span>
+<span class="sd">            Generates the evolution operator corresponding to the specified time.</span>
 
 <span class="sd">        hpc : bool, default = True</span>
-<span class="sd">            Whether or not to use neblina hpc functions to</span>
-<span class="sd">            generate the evolution operator.</span>
-
+<span class="sd">            Determines whether or not to use neblina HPC </span>
+<span class="sd">            functions to generate the evolution operator.</span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        :class:`numpy.ndarray`.</span>
@@ -571,19 +578,20 @@ document.write(`
 <span class="sd">        The evolution operator is given by</span>
 
 <span class="sd">        .. math::</span>
-<span class="sd">            U = e^{-\text{i}tH}</span>
+<span class="sd">            U = e^{-\text{i}tH},</span>
 
-<span class="sd">        where :math:`H` is a Hamiltonian matrix, and</span>
+<span class="sd">        where :math:`H` is the Hamiltonian, and</span>
 <span class="sd">        :math:`t` is the time.</span>
 
-<span class="sd">        The evolution operator is constructed by Taylor Series expansion.</span>
+<span class="sd">        The evolution operator is constructed using</span>
+<span class="sd">        a Taylor series expansion.</span>
 
 <span class="sd">        .. warning::</span>
-<span class="sd">            For floating time (not integer),</span>
-<span class="sd">            the result is approximated. It is recommended to</span>
-<span class="sd">            choose a small time interval and performing</span>
-<span class="sd">            multiple matrix multiplications to</span>
-<span class="sd">            mitigate uounding errors.</span>
+<span class="sd">            For non-integer time (floating number),</span>
+<span class="sd">            the result is approximate. It is recommended </span>
+<span class="sd">            to select a small time interval and perform </span>
+<span class="sd">            multiple matrix multiplications to minimize </span>
+<span class="sd">            rounding errors.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -633,24 +641,25 @@ document.write(`
 <div class="viewcode-block" id="ContinuousWalk.simulate"><a class="viewcode-back" href="../../../documentation/generated/generated/hiperwalk.ContinuousWalk.simulate.html#hiperwalk.ContinuousWalk.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">initial_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">initial_condition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hpc</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Analogous to :meth:`QuantumWalk.simulate`</span>
-<span class="sd">        accepting float entries for ``time``.</span>
+<span class="sd">        Analogous to :meth:`hiperwalk.QuantumWalk.simulate`,</span>
+<span class="sd">        which accepts float entries for the ``time`` parameter.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        time : float or tuple of floats</span>
-<span class="sd">            Analogous to the parameters of :meth:`QuantumWalk.simulate`,</span>
-<span class="sd">            but accepts float inputs.</span>
-<span class="sd">            ``step`` is used to construct the evolution operator.</span>
-<span class="sd">            The states in the interval</span>
-<span class="sd">            ***[* ``start/step``, ``end/step`` **]** are saved.</span>
-<span class="sd">            The values that describe this interval are</span>
-<span class="sd">            rounded up if the decimal part is greater than ``1 - 1e-5``,</span>
+<span class="sd">            This parameter is analogous to those in</span>
+<span class="sd">            :meth:`hiperwalk.QuantumWalk.simulate`,</span>
+<span class="sd">            with the distinction that it accepts float inputs.</span>
+<span class="sd">            The ``step`` parameter is used to construct the evolution operator.</span>
+<span class="sd">            The states within the interval</span>
+<span class="sd">            **[** ``start/step``, ``end/step`` **]** are stored.</span>
+<span class="sd">            The values describing this interval are</span>
+<span class="sd">            rounded up if the decimal part exceeds ``1 - 1e-5``,</span>
 <span class="sd">            and rounded down otherwise.</span>
 
 <span class="sd">        Other Parameters</span>
 <span class="sd">        ----------------</span>
-<span class="sd">        See :meth:`QuantumWalk.simulate`.</span>
+<span class="sd">        See `hiperwalk.QuantumWalk.simulate`.</span>
 
 <span class="sd">        See Also</span>
 <span class="sd">        --------</span>
