@@ -6,7 +6,7 @@
 Welcome to Hiperwalk!
 =====================
 
-**LATEST**
+**LATEST ✅✅**
 
 **Hiperwalk**, an acronym for High-Performance Quantum Walk Simulator, is a powerful, 
 open-source software designed to simulate quantum walks on various 
