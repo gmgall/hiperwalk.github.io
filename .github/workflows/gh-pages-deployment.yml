@@ -83,7 +83,7 @@ jobs:
       run: touch ./public/.nojekyll
 
     - name: Create CNAME
-      run: echo 'hiperwalk.org' >  ./public/CNAME
+      run: echo 'hiperwalk.gmgall.net' >  ./public/CNAME
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
