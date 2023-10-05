@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="./css/theme-css/teams.css.min.fcfb8db7476eab78560aefc0efcec4366740523e08279ec26c568590c69002fc.css" integrity="sha256-/PuNt0duq3hWCu/A787ENmdAUj4IJ57CbFaFkMaQAvw=">
 <link rel="stylesheet" href="./css/theme-css/vars.css.min.aad4d4b106de179c549cb071137b8b97c38926db91edaaff08af8ab9055df90e.css" integrity="sha256-qtTUsQbeF5xUnLBxE3uLl8OJJtuR7ar/CK&#43;KuQVd&#43;Q4=">
 <link rel="stylesheet" href="./css/theme-css/videos.css.min.b305d98ddc47a74381f484299ab14f9483f69d62928c4ed32697a5701355f138.css" integrity="sha256-swXZjdxHp0OB9IQpmrFPlIP2nWKSjE7TJpelcBNV8Tg=">
+<link rel="stylesheet" href="./css/css/shell.css.min.5ee5a6b8d8faedbb5157b1bfb4d9be5b2482bbe4e40af84575a92ae6ab028842.css" integrity="sha256-XuWmuNj67btRV7G/tNm&#43;WySCu&#43;TkCvhFdakq5qsCiEI=">
     
     
     <meta name="twitter:card" content="summary_large_image"/>
@@ -58,15 +59,15 @@
     <div id="navbar-menu" class="navbar-menu is-static">
 
       <div class="navbar-end">
-        <a href="https://hiperwalk.readthedocs.io/en/latest/" class="navbar-item is-secondary">
+        <a href="./docs/stable/" class="navbar-item is-secondary">
           Get started
           
         </a>
-        <a href="https://hiperwalk.readthedocs.io/en/latest/install/index.html" class="navbar-item is-secondary">
+        <a href="./docs/stable/install" class="navbar-item is-secondary">
           Install
           
         </a>
-        <a href="https://hiperwalk.readthedocs.io/en/latest/documentation/index.html" class="navbar-item is-secondary">
+        <a href="./docs/stable/documentation/" class="navbar-item is-secondary">
           Documentation
           
         </a>
@@ -98,15 +99,15 @@
     <div id="cloned-navbar-menu" class="navbar-menu is-fixed">
 
       <div class="navbar-end">
-        <a href="https://hiperwalk.readthedocs.io/en/latest/" class="navbar-item is-secondary">
+        <a href="./docs/stable/" class="navbar-item is-secondary">
           Get started
           
         </a>
-        <a href="https://hiperwalk.readthedocs.io/en/latest/install/index.html" class="navbar-item is-secondary">
+        <a href="./docs/stable/install" class="navbar-item is-secondary">
           Install
           
         </a>
-        <a href="https://hiperwalk.readthedocs.io/en/latest/documentation/index.html" class="navbar-item is-secondary">
+        <a href="./docs/stable/documentation/" class="navbar-item is-secondary">
           Documentation
           
         </a>
@@ -201,6 +202,58 @@
     
 
     
+    
+<div class="hero-right">
+    <div class="flex-column shell-title-container">
+            <div class="shell-title">Try Hiperwalk</div>
+            <div class="shell-content-message">
+                <p>Use the interactive shell to try Hiperwalk in the browser</p>
+            </div>
+    </div>
+    <div class="numpy-shell-canvas">
+        <div class="numpy-shell-container">
+            <div class="shell-lesson shell-content">
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">To try the examples in the browser:
+</span></span></span><span class="line"><span class="cl"><span class="s2">1. Type code in the input cell and press
+</span></span></span><span class="line"><span class="cl"><span class="s2">   Shift + Enter to execute
+</span></span></span><span class="line"><span class="cl"><span class="s2">2. Or copy paste the code, and click on
+</span></span></span><span class="line"><span class="cl"><span class="s2">   the &#34;Run&#34; button in the toolbar
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># The standard way to import NumPy:</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a 2-D array, set every second element in</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># some rows and find max per row:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">99</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># array([[  0,   1,   2,   3,   4],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        [-99,   6, -99,   8, -99],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        [-99,  11, -99,  13, -99]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># array([ 4,  8, 13])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Generate normally distributed random numbers:</span>
+</span></span><span class="line"><span class="cl"><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">samples</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2500</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">samples</span>
+</span></span></code></pre></div>
+            </div>
+            
+            <iframe
+                class="numpy-shell"
+                src="https://gmgall.github.io/xeus-python/repl/?toolbar=1&kernel=python&code=import%20hiperwalk%20as%20hw"
+            >
+            </iframe>
+        </div>
+    </div>
+</div>
+
+    
 
     
 
@@ -217,7 +270,7 @@
   <div class="container is-max-widescreen">
     <div id="footer-columns" class="columns">
       <div class="footer-logo-column">
-        <img id="footer-logo" src="./images/logo.png" alt=" logo. ">
+        <img id="footer-logo" src="./images/logo_small_dark.png" alt=" logo. ">
       </div>
         <div class="link-column">
           <div class="footer-column">
@@ -238,12 +291,12 @@
             </div>
             <ul class="link-list" style="margin-top: 20px;">
               <li class="link-list">
-                <a class="footer-link" href="https://hiperwalk.org/docs/documentation/">
+                <a class="footer-link" href="./docs/stable/documentation/">
                   Documentation
                 </a>
               </li>
               <li class="link-list">
-                <a class="footer-link" href="https://hiperwalk.org/docs/tutorial/index.html">
+                <a class="footer-link" href="./docs/stable/tutorial/">
                   Tutorial
                 </a>
               </li>
