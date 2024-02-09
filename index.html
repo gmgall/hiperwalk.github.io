@@ -213,34 +213,22 @@
     <div class="numpy-shell-canvas">
         <div class="numpy-shell-container">
             <div class="shell-lesson shell-content">
-                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">To try the examples in the browser:
-</span></span></span><span class="line"><span class="cl"><span class="s2">1. Type code in the input cell and press
-</span></span></span><span class="line"><span class="cl"><span class="s2">   Shift + Enter to execute
-</span></span></span><span class="line"><span class="cl"><span class="s2">2. Or copy paste the code, and click on
-</span></span></span><span class="line"><span class="cl"><span class="s2">   the &#34;Run&#34; button in the toolbar
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># The standard way to import NumPy:</span>
+                <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">hiperwalk</span> <span class="k">as</span> <span class="nn">hpw</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Create a 2-D array, set every second element in</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># some rows and find max per row:</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">99</span>
-</span></span><span class="line"><span class="cl"><span class="n">x</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># array([[  0,   1,   2,   3,   4],</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#        [-99,   6, -99,   8, -99],</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#        [-99,  11, -99,  13, -99]])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># array([ 4,  8, 13])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Generate normally distributed random numbers:</span>
-</span></span><span class="line"><span class="cl"><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">samples</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2500</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">samples</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span> <span class="o">=</span> <span class="mi">128</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># adjacency matrix of complete graph with self loops</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">graph</span> <span class="o">=</span> <span class="n">hpw</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">qw</span> <span class="o">=</span> <span class="n">hpw</span><span class="o">.</span><span class="n">Coined</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">shift</span><span class="o">=</span><span class="s1">&#39;flipflop&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">coin</span><span class="o">=</span><span class="s1">&#39;G&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">marked</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;-G&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+</span></span><span class="line"><span class="cl"><span class="n">t_final</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">states</span> <span class="o">=</span> <span class="n">qw</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">t_final</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">state</span><span class="o">=</span><span class="n">qw</span><span class="o">.</span><span class="n">uniform_state</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">marked_prob</span> <span class="o">=</span> <span class="n">qw</span><span class="o">.</span><span class="n">success_probability</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">hpw</span><span class="o">.</span><span class="n">plot_success_probability</span><span class="p">(</span><span class="n">t_final</span><span class="p">,</span> <span class="n">marked_prob</span><span class="p">)</span>
 </span></span></code></pre></div>
             </div>
             
@@ -329,7 +317,7 @@
               </a>
             </div>
           </nav>
-          <div class="copyright">&copy; 2023 . All rights reserved.</div>
+          <div class="copyright">&copy; 2024 . All rights reserved.</div>
         </div>
     </div>
   </div>
